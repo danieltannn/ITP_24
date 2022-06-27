@@ -57,4 +57,5 @@ patch -p1 --no-backup-if-mismatch < ${base_dir}/../patches/11647f99b4de6bc460e10
 ```
 file downloaded from https://gitlab.com/kalilinux/build-scripts/kali-arm/-/tree/master/patches. Saved to /patches
 
-## Error 5
+## Error 5: Missing file brcm/BCM43430A
+**Solution**: Downloaded required folder from https://gitlab.com/kalilinux/build-scripts/kali-arm/-/blob/master/bsp/firmware/rpi/BCM43430A1.hcd
