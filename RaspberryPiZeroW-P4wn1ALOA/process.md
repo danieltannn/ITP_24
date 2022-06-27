@@ -42,3 +42,10 @@ This had thus caused other packages to not be installed which lead to the cause 
 ```
 extras="autossh avahi-daemon bash-completion dhcpcd5 dnsmasq dosfstools genisoimage golang haveged hostapd i2c-tools iodine policykit-1 python3-configobj python3-dev python3-pip python3-requests python3-smbus wpasupplicant"
 ```
+
+## Error 3: Missing sudo package
+sudo package was not installed.
+**Solution**: Including sudo package into list of packages to be installed 
+```
+base="apt-transport-https apt-utils console-setup e2fsprogs firmware-linux firmware-realtek firmware-atheros ifupdown initramfs-tools iw kali-defaults man-db mlocate netcat-traditional net-tools parted psmisc rfkill screen snmpd snmp sudo tftp tmux unrar usbutils vim wget zerofree"
+```
