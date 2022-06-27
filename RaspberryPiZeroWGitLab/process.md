@@ -19,5 +19,6 @@ sudo ./raspberry-pi-zero-w-p4wnp1-aloa.sh v1.0 (script requires one argument at 
 # Troubleshooting Process
 1. **Kernel Build Issue** - Kernel built successfully, however multiple issues were encountered in the process of building the kernel. 
     - make -j $(grep -c processor /proc/cpuinfo) (line 458) -> alot of errors that I dont understand D: \
-    - logs can be seen here: RaspberryPiZeroWGitLab/log
+    - logs can be seen in the folder here: log_error_1 (the result compressed img is also present)
+    
 
