@@ -19,7 +19,7 @@ sudo ./raspberry-pi-zero-w-p4wnp1-aloa.sh v1.0 (script requires one argument at 
 # Troubleshooting Process
 ## Kernel Build Issue
 Kernel built successfully, however multiple issues were encountered in the process of building the kernel.   
-Line 254 in bash script onwards, see log file for error messages
+Line 459 in bash script onwards, see log file for error messages
     
     
 
