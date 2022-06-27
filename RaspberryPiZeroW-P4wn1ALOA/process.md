@@ -49,3 +49,10 @@ sudo package was not installed.
 ```
 base="apt-transport-https apt-utils console-setup e2fsprogs firmware-linux firmware-realtek firmware-atheros ifupdown initramfs-tools iw kali-defaults man-db mlocate netcat-traditional net-tools parted psmisc rfkill screen snmpd snmp sudo tftp tmux unrar usbutils vim wget zerofree"
 ```
+
+## Error 4: Redundant yyloc global declaration
+**Solution**: Remove redundant declaration 
+```
+patch -p1 --no-backup-if-mismatch < ${base_dir}/../patches/11647f99b4de6bc460e106e876f72fc7af3e54a6.patch
+```
+
