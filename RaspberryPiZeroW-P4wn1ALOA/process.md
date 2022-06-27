@@ -21,3 +21,20 @@ Logs for error can be found on: error_log_1
 1. https://gitlab.com/kalilinux/build-scripts/kali-arm/-/tree/master/bsp/bluetooth/rpi (50-bluetooth-hci-auto-poweron.rules & pi-bluetooth+re4son_2.2_all.deb)
 2. https://gitlab.com/kalilinux/build-scripts/kali-arm/-/tree/master/bsp/firmware/rpi (config.txt)
 
+## Error 2: Packages not installed due to bash script using python2 package
+``` 
+extras="autossh avahi-daemon bash-completion dhcpcd5 dnsmasq dosfstools genisoimage golang haveged hostapd i2c-tools iodine policykit-1 python-configobj python-dev python-pip python-requests wpasupplicant"
+```
+Error message:
+```
+Package python-dev is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+However the following packages replace it:
+  python2-dev python2 python-dev-is-python3
+
+E: Unable to locate package python-configobj
+E: Package 'python-dev' has no installation candidate
+E: Unable to locate package python-requests
+```
+This had thus caused other packages to not be installed which lead to the cause of error as shown in log_error_2.
