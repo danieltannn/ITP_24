@@ -14,6 +14,10 @@ sudo ./rpi0w-nexmon-p4wnp1-aloa.sh 1.0 (1.0 is the version number)
 ```
 
 # Troubleshooting Process
-## Missing files (Error Line 215 & 216)
-1. 50-bluetooth-hci-auto-poweron.rules
-2. pi-bluetooth+re4son_2.2_all.deb
+## Error 1: Missing files (Error Line 215 & 216 & 220)
+**Files missing**: 50-bluetooth-hci-auto-poweron.rules & pi-bluetooth+re4son_2.2_all.deb & config.txt 
+Logs for error can be found on: error_log_1
+**Solution**: Downloaded required file from and saving it to /misc/pi-bluetooth and /misc
+1. https://gitlab.com/kalilinux/build-scripts/kali-arm/-/tree/master/bsp/bluetooth/rpi (50-bluetooth-hci-auto-poweron.rules & pi-bluetooth+re4son_2.2_all.deb)
+2. https://gitlab.com/kalilinux/build-scripts/kali-arm/-/tree/master/bsp/firmware/rpi (config.txt)
+
