@@ -56,3 +56,5 @@ base="apt-transport-https apt-utils console-setup e2fsprogs firmware-linux firmw
 patch -p1 --no-backup-if-mismatch < ${base_dir}/../patches/11647f99b4de6bc460e106e876f72fc7af3e54a6.patch
 ```
 file downloaded from https://gitlab.com/kalilinux/build-scripts/kali-arm/-/tree/master/patches. Saved to /patches
+
+## Error 5
