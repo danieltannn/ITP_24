@@ -37,4 +37,8 @@ E: Unable to locate package python-configobj
 E: Package 'python-dev' has no installation candidate
 E: Unable to locate package python-requests
 ```
-This had thus caused other packages to not be installed which lead to the cause of error as shown in log_error_2.
+This had thus caused other packages to not be installed which lead to the cause of error as shown in log_error_2.  
+**Solution**: Editing packages to utilise python3 
+```
+extras="autossh avahi-daemon bash-completion dhcpcd5 dnsmasq dosfstools genisoimage golang haveged hostapd i2c-tools iodine policykit-1 python3-configobj python3-dev python3-pip python3-requests python3-smbus wpasupplicant"
+```
