@@ -8,7 +8,12 @@ Architecture: x86-64
 
 # Build Process
 ```
-git clone https://github.com/lgeekjopt/P4wnP1_aloa.git 
+git clone https://github.com/lgeekjopt/P4wnP1_aloa.git clear
+cd P4wnP1_aloa/build_support
+sudo ./rpi0w-nexmon-p4wnp1-aloa.sh 1.0 (1.0 is the version number)
 ```
 
 # Troubleshooting Process
+## Missing files (Error Line 215 & 216)
+1. 50-bluetooth-hci-auto-poweron.rules
+2. pi-bluetooth+re4son_2.2_all.deb
