@@ -12,6 +12,8 @@ Reference materials:
 - http://www.isticktoit.net/?p=1383
 
 ## Document
-For each of the build attempt in Raspberry Pi Zero W - GitLab and Raspberry Pi Zero W - P4wnP1 A.L.O.A, errors that occur had been recorded down and explained.  
-If I was about to solve the issue/error at hand, a solution have been recorded down.  
-For each of the issue, a error log will be provided. Some error logs may be too large in size to be able to view directly from GitHub. 
+- For each of the build attempt in Raspberry Pi Zero W - GitLab and Raspberry Pi Zero W - P4wnP1 A.L.O.A, errors that occur had been recorded down and explained.  
+  - If I was about to solve the issue/error at hand, a solution have been recorded down.  
+  - For each of the issue, a error log will be provided. Some error logs may be too large in size to be able to view directly from GitHub.   
+- **process.md** - shows the steps taken by me and the errors faced
+
