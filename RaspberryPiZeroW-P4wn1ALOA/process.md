@@ -59,3 +59,12 @@ file downloaded from https://gitlab.com/kalilinux/build-scripts/kali-arm/-/tree/
 
 ## Error 5: Missing file brcm/BCM43430A
 **Solution**: Downloaded required folder from https://gitlab.com/kalilinux/build-scripts/kali-arm/-/blob/master/bsp/firmware/rpi/BCM43430A1.hcd
+
+## Error 6: Missing file misc/zram
+**Solution**: Could not find the file zram. 
+What the script does with zram file:
+```
+cp "${basedir}"/../misc/zram "${basedir}"/kali-${architecture}/etc/init.d/zram
+chmod 755 "${basedir}"/kali-${architecture}/etc/init.d/zram
+```
+
