@@ -67,4 +67,5 @@ What the script does with zram file:
 cp "${basedir}"/../misc/zram "${basedir}"/kali-${architecture}/etc/init.d/zram
 chmod 755 "${basedir}"/kali-${architecture}/etc/init.d/zram
 ```
-
+## Error 7: Successfully build but during kernel build theres tons of error
+No solution
