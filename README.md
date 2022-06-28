@@ -7,6 +7,9 @@ Records the different attempts to rebuild the P4wnP1 ALOA image file using the b
 
 ## Libcomposite
 Attempts made to create a composite gadget for Raspberry Pi Zero W. 
+Reference materials: 
+- https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/
+- http://www.isticktoit.net/?p=1383
 
 ## Document
 For each of the build attempt in Raspberry Pi Zero W - GitLab and Raspberry Pi Zero W - P4wnP1 A.L.O.A, errors that occur had been recorded down and explained.  
