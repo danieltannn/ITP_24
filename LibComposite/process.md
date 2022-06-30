@@ -58,7 +58,7 @@ echo 250 > configs/c.1/MaxPower
 
 ls /sys/class/udc > UDC
 ```
-3. Adding script to rc.local so that it will run on boot everytime
+3. Adding script to rc.local so that it will run on boot everytime  
 Add line to before **exit 0**!!
 ```
 /usr/bin/compositeusb
