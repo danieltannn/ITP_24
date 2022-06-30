@@ -63,3 +63,6 @@ Add line to before **exit 0**!!
 ```
 /usr/bin/compositeusb
 ```
+# Gadgets
+The codes in this section will go into /usr/bin/compositeusb file in the raspberry pi 
+## 1. Ethernet Gadget
