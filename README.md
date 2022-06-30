@@ -14,6 +14,8 @@ Reference materials:
 - http://www.isticktoit.net/?p=1383
 
 ## Document
-**process.md** - shows the steps taken by me and the errors faced
+**process.md** - shows the steps taken  
+- Raspberry Pi Zero W - GitLab & Raspberry Pi Zero W - P4wnP1 A.L.O.A -> it shows the steps taken to rebuild the image file, occured error and solutions
+- Libcomposite -> shows the steps taken to setup Raspberry Pi Zero W for composite mode
 
 
