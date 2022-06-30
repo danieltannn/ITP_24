@@ -67,6 +67,7 @@ Add line to before **exit 0**!!
 The codes in this section will go into /usr/bin/compositeusb file in the raspberry pi 
 ## 1. Ethernet Gadget
 ```
+#mkdir -p functions/ecm.usb0 #Linux/MAC
 mkdir -p functions/rndis.usb0 #windows
 # First byte of MAC address must be even
 echo "48:6f:73:74:50:43" > functions/ecm.usb0/host_addr # MAC address for HOST PC
