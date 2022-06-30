@@ -25,30 +25,40 @@ sudo chmod +x /usr/bin/composite_usb
 2. Editting the config script:
 ```
 sudo nano /usr/bin/composite_usb
-
+```
+```
 #!/bin/bash
 cd /sys/kernel/config/usb_gadget/
-mkdir -p composite_usb
+
+# Creating a gadget directory for gadget configuration
+mkdir -p compositeusb
 cd composite_usb
+
+# Set IDs for the gadget
 echo 0x1d6b > idVendor # Linux Foundation
 echo 0x0104 > idProduct # Multifunction Composite Gadget
 echo 0x0100 > bcdDevice # v1.0.0
 echo 0x0200 > bcdUSB # USB2
+
+# Configure the text strings
 mkdir -p strings/0x409
 echo "1234567890" > strings/0x409/serialnumber
 echo "danieltanzhonghao" > strings/0x409/manufacturer
 echo "ITP24 Composite USB Device" > strings/0x409/product
+
+# Initial device configuration
 mkdir -p configs/c.1/strings/0x409
 echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
 echo 250 > configs/c.1/MaxPower
-# Gadget functions will be added here
 
+# Gadget functions will be added here
+---- See the section GADGET below ----
 # End of gadget functions
+
 ls /sys/class/udc > UDC
 ```
 3. Adding script to rc.local so that it will run on boot everytime
 Add line to before **exit 0**!!
 ```
-/usr/bin/composite_usb
+/usr/bin/compositeusb
 ```
-## Step 4: Configure all the desired USB Gadgets 
