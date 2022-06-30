@@ -1,6 +1,7 @@
-## Requirements
+# Requirements
 1. Raspbian OS (Lite or Full - both is fine)
 
+# Initial Setup to prepare Raspberry Pi Zero W for composite mode
 ## Step 1: Configure the SD Card 
 1. Flash Raspbian OS into SD card using Raspberry Pi Imager
    - To allow a headless setup, click on the gear icon on the bottom right and enable ssh while filling in your wifi details.
