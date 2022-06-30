@@ -6,7 +6,7 @@ Records the different attempts to rebuild the P4wnP1 ALOA image file using the b
 Records the different attempts to rebuild the P4wnP1 ALOA image file using the built script from https://github.com/RoganDawes/P4wnP1_aloa/blob/master/build_support/rpi0w-nexmon-p4wnp1-aloa.sh  
 
 ## Libcomposite
-Attempts made to create a composite gadget for Raspberry Pi Zero W.   
+Turn the Raspberry Pi Zero W into a composite gadget.    
 Reference materials:   
 - https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/
 - http://www.isticktoit.net/?p=1383
