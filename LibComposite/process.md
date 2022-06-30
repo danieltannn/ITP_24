@@ -66,3 +66,20 @@ Add line to before **exit 0**!!
 # Section C: Gadgets
 The codes in this section will go into /usr/bin/compositeusb file in the raspberry pi 
 ## 1. Ethernet Gadget
+```
+mkdir -p functions/rndis.usb0 #windows
+# First byte of MAC address must be even
+echo "48:6f:73:74:50:43" > functions/ecm.usb0/host_addr # MAC address for HOST PC
+echo "42:61:64:55:53:42" > functions/ecm.usb0/dev_addr # MAC address for Pi
+ln -s functions/rndis.usb0 configs/c.1/
+```
+For the below code place it below the last line of the /usr/bin/compositeusb file  
+This is to assigned a fixed ip for the raspberry pi.
+```
+ifconfig usb0 10.0.0.1 netmask 255.255.255.0 up
+```
+There are three address ranges reserved for private networks:  
+• 10.0.0.0 – 10.255.255.255  
+• 172.16.0.0 – 172.31.255.255  
+• 192.168.0.0 – 192.168.255.255  
+To avoid problems with routing and address conflicts use one of these and stay away from the ranges used by any other interfaces on either the HOST PC or the Pi Zero W. For example, if your router uses 192.168.x.x, use 10.x.x.x for the USB link.  
