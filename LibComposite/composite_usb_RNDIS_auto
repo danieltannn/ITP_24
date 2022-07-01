@@ -1,0 +1,98 @@
+#!/bin/bash
+ID_VENDOR="0x1d6b"
+ID_PRODUCT="0x0104"
+
+MAC="$(echo ${SERIAL} | sed 's/\(\w\w\)/:\1/g' | cut -b 2-)"
+MAC_HOST="12$(echo ${MAC} | cut -b 3-)"
+MAC_DEV="02$(echo ${MAC} | cut -b 3-)"
+
+cd /sys/kernel/config/usb_gadget/
+
+mkdir compositeusb
+cd compositeusb
+
+# configure gadget details
+# =========================
+echo "0x0200" > bcdUSB
+echo "0x02" > bDeviceClass
+echo "0x00" > bDeviceSubClass
+echo "0x3066" > bcdDevice
+echo $ID_VENDOR > idVendor
+echo $ID_PRODUCT > idProduct
+
+# Windows extensions to force config
+=====================================
+echo "1" > os_desc/use
+echo "0xcd" > os_desc/b_vendor_code
+echo "MSFT100" > os_desc/qw_sign
+
+# Configure the text strings
+# ===========================
+mkdir strings/0x409
+echo "1234567890" > strings/0x409/serialnumber
+echo "danieltanzhonghao" > strings/0x409/manufacturer
+echo "ITP24 Composite USB Device" > strings/0x409/product
+
+# Initial device configuration
+===============================
+mkdir configs/c.1
+mkdir configs/c.1/strings/0x409
+echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
+
+# Creating files for gadget
+============================
+#mkdir functions/ecm.usb0 # OSX/Linux Ethernet Gadget
+mkdir functions/rndis.usb0 # Windows Ethernet Gadget
+mkdir functions/hid.usb0 # HID Gadget
+
+# Creating functions
+=====================
+# 1. Ethernet Gadget function
+==============================
+echo "RNDIS" > functions/rndis.usb0/os_desc/interface.rndis/compatible_id
+echo "5162001" > functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
+
+echo $MAC_HOST > functions/rndis.usb0/host_addr
+echo $MAC_DEV > functions/rndis.usb0/dev_addr
+
+# 2. HID Gadget function
+=========================
+echo 1 > functions/hid.usb0/protocol
+echo 1 > functions/hid.usb0/subclass
+echo 8 > functions/hid.usb0/report_length
+echo -ne \\x05\\x01\\x09\\x06\\xa1\\x01\\x05\\x07\\x19\\xe0\\x29\\xe7\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x08\\x81\\x02\\x95\\x01\\x75\\x08\\x81\\x03\\x95\\x05\\x75\\x01\\x05\\x08\\x19\\x01\\x29\\x05\\x91\\x02\\x95\\x01\\x75\\x03\\x91\\x03\\x95\\x06\\x75\\x08\\x15\\x00\\x25\\x65\\x05\\x07\\x19\\x00\\x29\\x65\\x81\\x00\\xc0 > functions/hid.usb0/report_desc
+
+# Set up the rndis device only first (Ethernet Gadget)
+======================================================
+ln -s functions/rndis.usb0 configs/c.1 
+
+# Tell Windows to use config #2
+================================
+ln -s configs/c.1 os_desc
+
+# Show Windows the RNDIS device with bDeviceClass 0x02 and bDeviceSubClass 0x02
+================================================================================
+echo "20980000.usb" > UDC
+
+# Giving Windows time to install RNDIS driver
+==============================================
+sleep 5
+
+# Detach the USB gadget
+========================
+echo "" > UDC
+
+# Link rest of gadget functions (eg. HID)
+==========================================
+ln -s functions/hid.usb0 configs/c.1/
+
+# Reset bDeviceClass to 0x00
+=============================
+echo "0x00" > bDeviceClass
+
+# Re-attach the gadget
+=======================
+echo "20980000.usb" > UDC
+
+
+ifconfig usb0 10.0.0.1 netmask 255.255.255.0 up
