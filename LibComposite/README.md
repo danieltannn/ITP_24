@@ -115,7 +115,7 @@
    MAC address can be anything as long as first byte of the address is even  
    As for IP address, you can pick any two IP address from the reserved private networks range (One for the Pi, One for the HOST PC)
    
-   ### 1.5 Advance configuration 1: Removing the need to manually install RNDIS driver
+   ### 1.5 Advance configuration: Removing the need to manually install RNDIS driver
    Tricking Windows 10 into auto installing RNDIS driver for a composite gadget so we do not have to manually update its driver.  
    
    To achieve this:
