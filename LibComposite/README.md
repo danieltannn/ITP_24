@@ -69,6 +69,9 @@
    3. Adding script to rc.local so that it will run on boot everytime  
    Add line to before **exit 0**!!
    ```
+   sudo nano /etc/rc.local
+   ```
+   ```
    /usr/bin/compositeusb
    ```
 </details>  
