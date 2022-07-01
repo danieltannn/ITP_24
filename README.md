@@ -13,9 +13,5 @@ Reference materials:
 - https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/ (HID Gadget Mode)
 - http://www.isticktoit.net/?p=1383 (Configuring Pi)
 
-## Document
-**process.md** - shows the steps taken  
-- (Raspberry Pi Zero W - GitLab) & (Raspberry Pi Zero W - P4wnP1 A.L.O.A): shows the steps taken to rebuild the image file, occured error and solutions
-- Libcomposite: shows the steps taken to setup Raspberry Pi Zero W for composite mode
 
 
