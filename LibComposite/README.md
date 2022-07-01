@@ -113,5 +113,5 @@
    
    ### 1.4 Notes
    MAC address can be anything as long as first byte of the address is even  
-   Pick two IP address from the reserved private networks range (One for the Pi, One for the HOST PC)
+   As for IP address, you can pick any two IP address from the reserved private networks range (One for the Pi, One for the HOST PC)
 </details>
