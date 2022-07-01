@@ -50,12 +50,13 @@ echo "danieltanzhonghao" > strings/0x409/manufacturer
 echo "ITP24 Composite USB Device" > strings/0x409/product
 
 # Initial device configuration
-# ============================
+# =============================
 mkdir -p configs/c.1/strings/0x409
 echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
 echo 250 > configs/c.1/MaxPower
 
 # Gadget functions will be added here
+# ====================================
 # 
 #  
 #
