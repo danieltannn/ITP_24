@@ -83,8 +83,8 @@
    ### 1.1a Windows (RNDIS function)
    ```
    mkdir -p functions/rndis.usb0 
-   echo "48:6f:73:74:50:43" > functions/ecm.usb0/host_addr # MAC address for HOST PC
-   echo "42:61:64:55:53:42" > functions/ecm.usb0/dev_addr # MAC address for Pi
+   echo "48:6f:73:74:50:43" > functions/rndis.usb0/host_addr # MAC address for HOST PC
+   echo "42:61:64:55:53:42" > functions/rndis.usb0/dev_addr # MAC address for Pi
    ln -s functions/rndis.usb0 configs/c.1/
    ```
    Additional configuration is needed if we are configuring Ethernet Gadget mode for Windows. Since Windows does not automatically install the correct drivers for the Raspberry Pi Zero W. The Pi will be misidentified as a CDC Serial Device.  
