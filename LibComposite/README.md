@@ -119,12 +119,12 @@
    Tricking Windows 10 into auto installing RNDIS driver for a composite gadget so we do not have to manually update its driver.  
    
    To achieve this:
-   1. Set up an RNDIS gadget using a VID/PID of a known good device that is compatible with composite RNDIS and setting bDeviceClass and bDeviceSubClass to 0x02 for a valid gadget. 
-   2. Set up the "os_desc" node with Windows.  
-   3. Link only the RNDIS function to the config (ethernet gadget mode), attach the USB gadget to the device and allow for Windows to detect and install drivers. 
-   4. Detach the USB gadget to link the rest of my functions such as HID gadget.
-   5. Setting the bDeviceClass back to 0x00. Forces Windows to use device information in the descriptors and preventing assumption of a particular class.
-   6. Reattach the USB gadget
+   - Set up an RNDIS gadget using a VID/PID of a known good device that is compatible with composite RNDIS and setting bDeviceClass and bDeviceSubClass to 0x02 for a valid gadget. 
+   - Set up the "os_desc" node with Windows.  
+   - Link only the RNDIS function to the config (ethernet gadget mode), attach the USB gadget to the device and allow for Windows to detect and install drivers. 
+   - Detach the USB gadget to link the rest of my functions such as HID gadget.
+   - Setting the bDeviceClass back to 0x00. Forces Windows to use device information in the descriptors and preventing assumption of a particular class.
+   - Reattach the USB gadget
    
    The complete example can be seen on bash script: **composite_gadget_autoRNDIS.sh**
    
