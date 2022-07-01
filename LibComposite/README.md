@@ -79,7 +79,7 @@
 # Section C: Gadgets
 <details><summary> The codes in this section will go into the /usr/bin/compositeusb file in the raspberry pi under the header "Gadget functions will be added here". Click to expand </summary>
    
-## 1. Ethernet Gadget
+   ## 1. Ethernet Gadget
    ### 1.1a Windows (RNDIS function)
    ```
    mkdir -p functions/rndis.usb0 
@@ -87,7 +87,7 @@
    echo "42:61:64:55:53:42" > functions/rndis.usb0/dev_addr # MAC address for Pi
    ln -s functions/rndis.usb0 configs/c.1/
    ```
-   Additional configuration is needed if we are configuring Ethernet Gadget mode for Windows. Since Windows does not automatically install the correct drivers for the Raspberry Pi Zero W. 
+   Additional configuration is needed if we are configuring Ethernet Gadget mode for Windows. Since Windows does not automatically  install the correct drivers for the Raspberry Pi Zero W. 
    
    To solve this, we have to manually find the device under "Device Manager" and updating its driver to a "RNDIS/Ethernet Device"  
    The .inf file for the driver can be downloaded from this GitHub under LibComposite/RNDIS.inf  
@@ -114,4 +114,24 @@
    ### 1.4 Notes
    MAC address can be anything as long as first byte of the address is even  
    As for IP address, you can pick any two IP address from the reserved private networks range (One for the Pi, One for the HOST PC)
+   
+   ### Advance configuration 1: Removing the need to manually install RNDIS driver
+   Tricking Windows 10 into auto installing RNDIS driver for a composite gadget so we do not have to manually update its driver.  
+   
+   To achieve this, I set up an RNDIS gadget using a VID/PID of a known good device that is compatible with composite RNDIS and setting bDeviceClass and bDeviceSubClass to 0x02 for a valid gadget. I then set up the "0s_desc" node with Windows.  
+   Firstly I link only the RNDIS function to the config (ethernet gadget mode), attach the USB gadget to the device and allow for Windows to detect and install drivers. Then I detach the USB gadget to link the rest of my functions such as HID gadget and setting the bDeviceClass back to 0x00. I then reattach the USB gadget.  
+   
+   The complete example can be seen on bash script: **composite_gadget_autoRNDIS.sh**
+   
+   ## 2. HID Keyboard
+   ```
+   mkdir -p functions/hid.usb0
+   echo 1 > functions/hid.usb0/protocol
+   echo 1 > functions/hid.usb0/subclass
+   echo 8 > functions/hid.usb0/report_length
+   echo -ne \\x05\\x01\\x09\\x06\\xa1\\x01\\x05\\x07\\x19\\xe0\\x29\\xe7\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x08\\x81\\x02\\x95\\x01\\x75\\x08\\x81\\x03\\x95\\x05\\x75\\x01\\x05\\x08\\x19\\x01\\x29\\x05\\x91\\x02\\x95\\x01\\x75\\x03\\x91\\x03\\x95\\x06\\x75\\x08\\x15\\x00\\x25\\x65\\x05\\x07\\x19\\x00\\x29\\x65\\x81\\x00\\xc0 > functions/hid.usb0/report_desc
+   ln -s functions/hid.usb0 configs/c.1/
+   ```
+   This will turn the Raspberry Pi Zero W into a HID keyboard however it still requires additional scripts to send keystrokes to the HOST PC (etiher automatically or manually.)
+   
 </details>
