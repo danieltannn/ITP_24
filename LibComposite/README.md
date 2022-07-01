@@ -72,7 +72,7 @@
    sudo nano /etc/rc.local
    ```
    ```
-   /usr/bin/compositeusb
+   /usr/bin/composite_usb
    ```
 </details>  
 
