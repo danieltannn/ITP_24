@@ -10,8 +10,8 @@ At the same time, the different errors and solution have also been noted down an
 ## Libcomposite
 Turn the Raspberry Pi Zero W into a composite gadget.    
 Reference materials:   
-- https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/
-- http://www.isticktoit.net/?p=1383
+- https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/ (HID Gadget Mode)
+- http://www.isticktoit.net/?p=1383 (Configuring Pi)
 
 ## Document
 **process.md** - shows the steps taken  
