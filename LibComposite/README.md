@@ -77,7 +77,7 @@
 </details>  
 
 # Section C: Gadgets
-<details><summary> The codes in this section will go into the /usr/bin/compositeusb file in the raspberry pi. Click to expand </summary>
+<details><summary> The codes in this section will go into the /usr/bin/compositeusb file in the raspberry pi under the header "Gadget functions will be added here". Click to expand </summary>
    
 ## 1. Ethernet Gadget
    ### 1.1a Windows (RNDIS function)
