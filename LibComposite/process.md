@@ -84,7 +84,10 @@
    echo "42:61:64:55:53:42" > functions/ecm.usb0/dev_addr # MAC address for Pi
    ln -s functions/rndis.usb0 configs/c.1/
    ```
-   Additional configuration is needed if we are configuring Ethernet Gadget mode for Windows. Since Windows does not automatically install the correct drivers for the Raspberry Pi Zero W. The Pi will be misidentified as a CDC Serial Device
+   Additional configuration is needed if we are configuring Ethernet Gadget mode for Windows. Since Windows does not automatically install the correct drivers for the Raspberry Pi Zero W. The Pi will be misidentified as a CDC Serial Device.  
+   
+   To solve this, we have to manually find the device under "Device Manager" and updating its driver to a "RNDIS/Ethernet Device"  
+   The .inf file for the driver can be downloaded from this GitHub under LibComposite/RNDIS.inf
    ### 1.1b Linux/MAC (CDC ECM function)
    ```
    mkdir -p functions/ecm.usb0
