@@ -35,7 +35,7 @@
 
    # Creating a gadget directory for gadget configuration
    mkdir -p compositeusb
-   cd composite_usb
+   cd compositeusb
 
    # configure gadget details
    # =========================
