@@ -44,6 +44,7 @@ echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
 #mkdir functions/ecm.usb0 # OSX/Linux Ethernet Gadget
 mkdir functions/rndis.usb0 # Windows Ethernet Gadget
 mkdir functions/hid.usb0 # HID Gadget
+mkdir -p functions/acm.usb0 # Serial Gadget 
 
 # Creating functions
 =====================
@@ -84,7 +85,8 @@ echo "" > UDC
 
 # Link rest of gadget functions (eg. HID)
 ==========================================
-ln -s functions/hid.usb0 configs/c.1/
+ln -s functions/hid.usb0 configs/c.1/ # HID 
+ln -s functions/acm.usb0 configs/c.1/ # Serial
 
 # Reset bDeviceClass to 0x00
 =============================
