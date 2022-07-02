@@ -139,4 +139,14 @@
    ```
    This will turn the Raspberry Pi Zero W into a HID keyboard however it still requires additional scripts to send keystrokes to the HOST PC (etiher automatically or manually.)
    
+   ## 3. Serial Gadget
+   ```
+   mkdir -p functions/acm.usb0
+   ln -s functions/acm.usb0 configs/c.1/
+   ```
+   Then on console, we have to enable login via gadget serial port 
+   ```
+   sudo systemctl enable getty@ttyGS0.service
+   ```
+   
 </details>
