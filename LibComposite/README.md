@@ -55,6 +55,7 @@ Allow users to connect into the Pi through the serial port for troubleshooting p
 **Advance Configuration**
 1. Giving the Pi Access to your network and the Internet (requires the USB host to be connected to the network and internet)  
    This is done through Network sharing.
+   - This would then allow the Pi to communicate with the Internet :D
    
 2. Sharing the Pi's Wifi with the USB Host (only works for Raspberry Pi that have built in WiFi board)
 
