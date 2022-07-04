@@ -47,5 +47,6 @@ The EncodedCommand a.k.a -e, will read the following given as a base64 string an
 
 In this method we utilize the Mass storage mode and HID mode of the composite Pi.  
 1. We will be placing in the backing store (storage) created in the Pi. 
-2. Once the Pi is connected, the script will be visible in the Student's PC 
-3. From there, we can send in keystrokes using the HID mode to execute the script from 
+2. Once the Pi is connected, the emulated mass storage will be visible.
+3. Inside the storage device, the proctoring script will then be present.
+4. From there, we can send in keystrokes using the HID mode to execute the script from Windows built in programs (such as cmd.exe or powershell.exe) inside the emulated mass storage device in the Student's PC
