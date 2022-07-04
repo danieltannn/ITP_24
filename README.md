@@ -1,4 +1,5 @@
 # Achieving Composite Mode on Raspberry Pi
+This section shows the different research done to achieve composite mode on Raspberry Pi Zero W.  
 ## 1. Raspberry Pi Zero W - GitLab
 Records the different attempts to rebuild the P4wnP1 ALOA image file using the built script from https://gitlab.com/kalilinux/build-scripts/kali-arm/-/blob/master/raspberry-pi-zero-w-p4wnp1-aloa.sh.   
 At the same time, the different errors and solution have also been noted down and explained.
