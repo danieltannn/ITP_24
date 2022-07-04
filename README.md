@@ -27,5 +27,5 @@ Shows the research on different ways the Raspberry Pi Zero W can conduct proctor
 - The Raspberry Pi has already been configured to achieve composite mode (See Libcomposite for more info)
 - The Raspberry Pi has internet connection
 
-## Fileless Execution
+## 1. Fileless Execution
 Conducting the proctoring without needing to copy the files onto the Student's PC disk. Utilizing Powershell, we can run a script directly in memory.  
