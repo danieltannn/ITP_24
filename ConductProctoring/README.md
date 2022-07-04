@@ -39,3 +39,13 @@ The EncodedCommand a.k.a -e, will read the following given as a base64 string an
 - WindowStyle (-w) hidden: This makes the Powershell operation stealth by hiding the program window away from the user
 - Exec Bypass: bypass/ignore the execution policy like _Restricted_ which restricts the PS command from running
 - Noprofile (-nop): Ignore the commands in the Profile file
+
+# 2. Mass Storage 
+
+**Prerequisite:**
+- The Raspberry Pi has already been configured to achieve composite mode (See Libcomposite for more info)
+
+In this method we utilize the Mass storage mode and HID mode of the composite Pi.  
+1. We will be placing in the backing store (storage) created in the Pi. 
+2. Once the Pi is connected, the script will be visible in the Student's PC 
+3. From there, we can send in keystrokes using the HID mode to execute the script from 
