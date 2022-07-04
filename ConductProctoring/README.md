@@ -2,9 +2,8 @@
 
 **Prerequisite:**
 - The Raspberry Pi has already been configured to achieve composite mode (See Libcomposite for more info)
-- The Raspberry Pi has internet connection
 
-Using the Raspberry Pi Zero W, HID mode, I can then open up Powershell using Win + R and send in keystrokes command below to conduct proctoring without needing to copy external binary executable to devices. Instead, and run them purely in memory. 
+Using the Raspberry Pi Zero W, HID mode, I can then open up Powershell using Win + R and send in keystrokes command from the examples below to conduct proctoring without needing to copy external binary executable to devices. Instead, and run them purely in memory. 
 
 Reference materials:
 - https://www.mcafee.com/enterprise/en-us/assets/solution-briefs/sb-fileless-malware-execution.pdf
