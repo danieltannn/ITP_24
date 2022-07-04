@@ -21,15 +21,7 @@ Reference materials:
 - https://github.com/RoganDawes/P4wnP1/blob/master/boot/init_usb.sh (P4wnP1 Libcomposite usage example)
 
 # Conducting Procotring on Student's PC
-Shows the research on different ways the Raspberry Pi Zero W can conduct proctoring on the Student's PC  
+Shows the research on different ways the Raspberry Pi Zero W can conduct proctoring on the Student's PC.
+- Either dropping the proctoring scripts on the Student's PC and executing it
+- Or non conventional methods such as fileless execution
 
-**Prerequisite:**
-- The Raspberry Pi has already been configured to achieve composite mode (See Libcomposite for more info)
-- The Raspberry Pi has internet connection
-
-## 1. Fileless Execution
-Conducting the proctoring without needing to cpy external binary executable to devices. Instead, use existing software, particularly Powershell, to download additional scripts and run them purely in memory. 
-
-Reference materials:
-- https://www.mcafee.com/enterprise/en-us/assets/solution-briefs/sb-fileless-malware-execution.pdf
-- https://www.varonis.com/blog/fileless-malware
