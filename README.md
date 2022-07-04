@@ -12,6 +12,8 @@ Turn the Raspberry Pi Zero W into a composite gadget.
 Reference materials:   
 - https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/ (HID Gadget Mode)
 - http://www.isticktoit.net/?p=1383 (Configuring Pi)
+- https://gist.github.com/Gadgetoid/c52ee2e04f1cd1c0854c3e77360011e2, https://irq5.io/2016/12/22/raspberry-pi-zero-as-multiple-usb-gadgets/ (Configuring auto RNDIS)
+- https://github.com/RoganDawes/P4wnP1/blob/master/boot/init_usb.sh (P4wnP1 Libcomposite usage example)
 
 
 
