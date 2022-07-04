@@ -29,3 +29,7 @@ Shows the research on different ways the Raspberry Pi Zero W can conduct proctor
 
 ## 1. Fileless Execution
 Conducting the proctoring without needing to copy the files onto the Student's PC disk. Utilizing Powershell, we can run a script directly in memory.  
+
+Reference materials:
+- https://www.mcafee.com/enterprise/en-us/assets/solution-briefs/sb-fileless-malware-execution.pdf
+- https://www.varonis.com/blog/fileless-malware
