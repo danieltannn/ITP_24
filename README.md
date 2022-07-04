@@ -8,7 +8,8 @@ Records the different attempts to rebuild the P4wnP1 ALOA image file using the b
 At the same time, the different errors and solution have also been noted down and explained.
 
 ## 3. Libcomposite
-Turn the Raspberry Pi Zero W into a composite gadget.    
+Turn the Raspberry Pi Zero W into a composite gadget. 
+
 Reference materials:   
 - https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/ (HID Gadget Mode)
 - http://www.isticktoit.net/?p=1383 (Configuring Pi)
@@ -16,8 +17,9 @@ Reference materials:
 - https://github.com/RoganDawes/P4wnP1/blob/master/boot/init_usb.sh (P4wnP1 Libcomposite usage example)
 
 # Conducting Procotring on Student's PC
-Shows the research on different ways the Raspberry Pi Zero W can conduct proctoring on the Student's PC 
-**Prerequisite**
+Shows the research on different ways the Raspberry Pi Zero W can conduct proctoring on the Student's PC  
+
+**Prerequisite:**
 - The Raspberry Pi has already been configured to achieve composite mode (See Libcomposite for more info)
 - The Raspberry Pi has internet connection
 
