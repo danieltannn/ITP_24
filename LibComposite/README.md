@@ -1,4 +1,5 @@
 # This directory shows the how to set up the Raspberry Pi Zero W into a composite gadget. 
+Look into "setup.md" for a more deetailed step by step guide on how to set up the Raspberry Pi Zero W.  
 
 ## Different gadget modes that Raspberry Pi Zero W allows
 ## 1. Serial Gadget
