@@ -3,7 +3,9 @@
 **Prerequisite:**
 - The Raspberry Pi has already been configured to achieve composite mode (See Libcomposite for more info)
 
-Using the Raspberry Pi Zero W, HID mode, I can then open up Powershell using Win + R and send in keystrokes command from the examples below to conduct proctoring without needing to copy external binary executable to devices. Instead, and run them purely in memory. 
+Using the Raspberry Pi Zero W, HID mode, keystroke can be sent to execute "Run". Following which, additional keystrokes command can be sent from the examples below to conduct proctoring.  
+
+With the Fileless Execution method, we do not need to copy any external binary executable/scripts to be able to conduct proctoring. Instead we utilize a Windows built-in software Powershell, to download additional scripts and run them purely in memory. 
 
 Reference materials:
 - https://www.mcafee.com/enterprise/en-us/assets/solution-briefs/sb-fileless-malware-execution.pdf
