@@ -40,6 +40,17 @@ The EncodedCommand a.k.a -e, will read the following given as a base64 string an
 - Exec Bypass: bypass/ignore the execution policy like _Restricted_ which restricts the PS command from running
 - Noprofile (-nop): Ignore the commands in the Profile file
 
+## Pros:
+- Not intrusive, no file will be downloaded and placed in the student's PC 
+- Students have no access to the proctoring script at all 
+- Execute in the background hidden
+- When updating the proctoring script, proctors can just re-host the newest version on the remote server
+
+## Cons:
+- Proctoring Script have to be written in powershell language
+- A remote server to serve the proctoring script from method 1.1
+- For method 1.2, if there is any update on the proctoring script, encodedstring have to be reformed and HID keystroke commands have to be editted too on every single raspberry pi
+
 # 2. Mass Storage 
 
 **Prerequisite:**
@@ -50,3 +61,10 @@ In this method we utilize the Mass storage mode and HID mode of the composite Pi
 2. Once the Pi is connected, the emulated mass storage will be visible.
 3. Inside the storage device, the proctoring script will then be present.
 4. From there, we can send in keystrokes using the HID mode to execute the script from Windows built in programs (such as cmd.exe or powershell.exe) inside the emulated mass storage device in the Student's PC
+
+## Pros:
+- Not much pros
+
+## Cons:
+- Script is accessible to students which will allow them to study it and possbily find ways to avoid detection
+- In the event of proctoring script updating, every Pi have to be updated manually
