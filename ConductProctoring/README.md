@@ -29,7 +29,7 @@ $bytes = [System.Text.Encoding]::Unicode.GetBytes($command)
 $encodedCommand = [Convert]::ToBase64String($bytes)
 write-host $encodedCommand
 ```
-After we know the encoded string, runnning the command below will allow us to conduct proctoring without needing to drop any files into the student's PC. In this case, we would not even need to have a remote script stored anywhere
+After we know the encoded string, runnning the command below will allow us to conduct proctoring without needing to drop any files into the student's PC. In this case, we would not even need to have a remote script stored anywhere.
 ```
 powershell.exe -executionpolicy bypass -w hidden -e <base64encodedstring>
 ```
