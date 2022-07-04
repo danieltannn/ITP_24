@@ -68,3 +68,18 @@ In this method we utilize the Mass storage mode and HID mode of the composite Pi
 ## Cons:
 - Script is accessible to students which will allow them to study it and possbily find ways to avoid detection
 - In the event of proctoring script updating, every Pi have to be updated manually
+
+# 3. Pymem
+
+**Prerequisite:**
+- The Raspberry Pi has already been configured to achieve composite mode (See Libcomposite for more info)
+
+This method allows the injection of python interpreter into any process. 
+
+## Pros:
+- NA 
+
+## Cons: 
+- Script that does the injection is presented in the Student's PC
+- In the script that perform the injection, the proctoring features is exposed to the students. 
+
