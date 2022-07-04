@@ -115,3 +115,9 @@ It cannot be:
     - Cons:
       - It's more complicated to set up compared to g_mass_storage
       - Everything must be set up manually
+
+## 4. HID Keyboard
+Allows Raspberry Pi Zero W to masked as a keyboard and send keystrokes to the Host PC. 
+
+## 5. Others
+...
