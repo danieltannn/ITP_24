@@ -38,6 +38,7 @@ The EncodedCommand a.k.a -e, will read the following given as a base64 string an
 ## 1.3 Additional Parameters
 - WindowStyle (-w) hidden: This makes the Powershell operation stealth by hiding the program window away from the user
 - Exec Bypass: bypass/ignore the execution policy like _Restricted_ which restricts the PS command from running
+  - With this even if user set _ExecutionPolicy: Restricted_, we are still able to run the proctoring script
 - Noprofile (-nop): Ignore the commands in the Profile file
 
 ## Pros:
