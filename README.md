@@ -25,3 +25,7 @@ Shows the research on different ways the Raspberry Pi Zero W can conduct proctor
 - Either dropping the proctoring scripts on the Student's PC and executing it
 - Or non conventional methods such as fileless execution
 
+# 3. Obfuscation on "Craddle" and Powershell script 
+Shows the research on the different tools and methods used:
+- To obfuscate the command to retrieve string in file to conduct fileless execution (More on Fileless execution in Section 2. Conducting proctoring on Stuident's PC)
+- To obfuscate the procotoring script (which contains the different proctoring functions)
