@@ -1,5 +1,6 @@
 # 1. Achieving Composite Mode on Raspberry Pi
 This section shows the different research done to achieve composite mode on Raspberry Pi Zero W.  
+Compose of: P4wnp1, P4wnP1 A.L.O.A, LibComposite Module
 
 Reference materials:
 - https://randomnerdtutorials.com/raspberry-pi-zero-usb-keyboard-hid/ (HID Gadget Mode)
