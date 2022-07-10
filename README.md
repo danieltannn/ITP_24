@@ -1,17 +1,16 @@
 # 1. Achieving Composite Mode on Raspberry Pi
 This section shows the different research done to achieve composite mode on Raspberry Pi Zero W.  
 
-## 1.1. g_{hid,ether,serial,*} - not able to turn Pi into a composite mode
-## 1.2. Raspberry Pi Zero W - P4wnP1
-## 1.3.1. Raspberry Pi Zero W - GitLab
+## 1.1. Raspberry Pi Zero W - P4wnP1
+## 1.2.1. Raspberry Pi Zero W - GitLab
 Records the different attempts to rebuild the P4wnP1 ALOA image file using the built script from https://gitlab.com/kalilinux/build-scripts/kali-arm/-/blob/master/raspberry-pi-zero-w-p4wnp1-aloa.sh.   
 At the same time, the different errors and solution have also been noted down and explained.
 
-## 1.3.2. Raspberry Pi Zero W - P4wnP1 A.L.O.A
+## 1.2.2. Raspberry Pi Zero W - P4wnP1 A.L.O.A
 Records the different attempts to rebuild the P4wnP1 ALOA image file using the built script from https://github.com/RoganDawes/P4wnP1_aloa/blob/master/build_support/rpi0w-nexmon-p4wnp1-aloa.sh  
 At the same time, the different errors and solution have also been noted down and explained.
 
-## 1.4. Libcomposite
+## 1.3. Libcomposite
 Turn the Raspberry Pi Zero W into a composite gadget. 
 
 Reference materials:   
@@ -29,3 +28,9 @@ Shows the research on different ways the Raspberry Pi Zero W can conduct proctor
 Shows the research on the different tools and methods used:
 - To obfuscate the command to retrieve string in file to conduct fileless execution (More on Fileless execution in Section 2. Conducting proctoring on Stuident's PC)
 - To obfuscate the procotoring script (which contains the different proctoring functions)
+
+Reference materials:
+- https://github.com/danielbohannon/Invoke-Obfuscation
+- https://github.com/klezVirus/chameleon
+- https://github.com/JoelGMSec/Invoke-Stealth
+- https://www.blackhat.com/docs/us-17/thursday/us-17-Bohannon-Revoke-Obfuscation-PowerShell-Obfuscation-Detection-And%20Evasion-Using-Science.pdf
