@@ -1,4 +1,4 @@
-# Tool One: Invoke-Obfuscation
+# Tool: Invoke-Obfuscation
 ## Can be used for command block or an entire script 
 
 ### 1. Token - Obfuscate the command itself by hiding parts by parts listed below
