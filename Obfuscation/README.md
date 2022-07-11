@@ -1,7 +1,7 @@
 # Tool One: Invoke-Obfuscation
 ## Can be used for command block or an entire script 
 
-### 1. Token 
+### 1. Token - Obfuscate the command itself by hiding parts by parts listed below
 - String (Obfuscation for string in command)
 1.1 Concatenate: coffee -> ('co'+'ffe'+'e')  
 1.2 Reorder: coffee -> ('{1}{0}'-f'ffee','co')  
@@ -30,7 +30,7 @@
 - Whitespace  
 1.1 Adding random whitespaces
 
-### 2. String
+### 2. String - Obfuscate the entire command as a String, not the same as Token(String)
 - Concatenate: Concatenate entire string  
 - Reorder: Reorder entire command after concatenating  
 - Reverse: Reverse entire command after concatenating  
