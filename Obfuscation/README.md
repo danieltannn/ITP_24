@@ -49,8 +49,28 @@
 ### 4. Compress - Convert entire command or powershell script into a one-liner and compress it 
 This is done through firstly compressing the powershell script or command then base64 encodes it.
 
-# Testings: Timing of decode and translate to execution
-## It is important to obfuscate powershell script and cradle but in the event of too many layers of obfuscation the execution speed will significantly increase
+# Findings and explanation
+## Proctoring Script
+Since the purpose of obfuscating this script is to make it unreadable as a whole and hard to decode and translate. I did not bother with obfuscating tokens which will look into the script and obfuscate every powershell command based on their types as stated. (command, argument, variable, etc).  
+
+However I will be obfuscating the comments.  
+
+Instead I will be using the String Obfuscation along side the Encoding Obfuscation to encode and transform the protoring script into an unreadable format so in the event when a student got a hold onto the script, they would not be able to read it and easily decode and translate the script.  
+
+## Cradle
+Our current cradle to retrieve proctoring script and execute
+``` powershell.exe -executionpolicy bypass "iex(New-Object System.Net.WebClient).DownloadString('http://localhost:8000/Desktop/a.ps1') ```  
+
+What can be obfuscate ? This ```iex(New-Object System.Net.WebClient).DownloadString('http://localhost:8000/Desktop/a.ps1')```
+
+1. The string ```http://localhost:8000/Desktop/a.ps1``` 
+2. The command ```iex``` and ```New-Object```
+3. The argument ```System.Net.WebClient```
+4. The member ```DownloadString```
+
+As for obfuscating cradle since it will display the location of where the script will be retrieve from, we will perform more indepth obfuscation with TOKENS obfuscating.
+
+# Testings Results (Powershell Script)
 ### Base without any obfuscation  
 | Testings | Timing | 
 | --- | --- |
@@ -148,11 +168,3 @@ This is done through firstly compressing the powershell script or command then b
 | Test 1 | 3.876 seconds  | 
 | Test 2 | 3.163 seconds  | 
 | Test 3 | 3.228 seconds  |
-
-# Findings and explanation
-## Proctoring Script
-Since the purpose of obfuscating this script is to make it unreadable as a whole and hard to decode and translate. I did not bother with obfuscating tokens which will look into the script and obfuscate every powershell command based on their types as stated. (command, argument, variable, etc).  
-
-However I will be obfuscating the comments.  
-
-Instead I will be using the String Obfuscation along side the Encoding Obfuscation to encode and transform the protoring script into an unreadable format so in the event when a student got a hold onto the script, they would not be able to read it and easily decode and translate the script.  
