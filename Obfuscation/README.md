@@ -44,7 +44,7 @@
 - SecureString (AES)
 - BXOR: bitwise BXOR
 - Special Characters: https://perl-users.jp/articles/advent-calendar/2010/sym/11
-- Whitespace
+- Whitespace: Encodes the powershell script with whitespaces and tabs. 
 
 ### 4. Compress - Convert entire command or powershell script into a one-liner and compress it 
 This is done through firstly compressing the powershell script or command then base64 encodes it.
