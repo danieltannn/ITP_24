@@ -57,7 +57,6 @@ This is done through firstly compressing the powershell script or command then b
 | Test 1 | 1.356 seconds  | 
 | Test 2 | 1.395 seconds  | 
 | Test 3 | 1.339 seconds  | 
-| Average | 
 
 ### String obfuscation (concatenate only)
 | Testings | Timing | 
