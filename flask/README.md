@@ -21,10 +21,12 @@ sudo nano server.py
 
 ## Testing uWSGI
 In the RPi run, `uwsgi --socket 0.0.0.0:8000 --protocol=http -w server:app`
+![image](https://user-images.githubusercontent.com/44192542/178711309-9a0ca72b-d7f4-423f-a613-fc48b8c9848d.png)
 
 Go to the IP address of the RPi at port 8000 (`<ip>:8000`) to access the flask website
+![image](https://user-images.githubusercontent.com/44192542/178711355-45387793-2e5a-477b-903d-26ac616eb494.png)
 
-`CTRL+C` to exit the uWSGI test.
+Use `CTRL+C` to exit the uWSGI test.
 
 ## Init file for uWSGI
 Create an initialisation file for uWSGI
@@ -56,6 +58,7 @@ die-on-term = true
 uwsgi --ini uwsgi.ini
 ```
 In a new ssh window, type `ls /tmp` to check whether flaskserver.sock is created
+![image](https://user-images.githubusercontent.com/44192542/178710569-492c9c50-7b16-4afb-a4b0-c745c12043dd.png)
 
 ## Nginx to use uWSGI
 Remove the default site in nginx.
@@ -84,6 +87,8 @@ Create a symbolic link to the flaskserver proxy in the `sites-enabled` sub-direc
 sudo ln -s /etc/nginx/sites-available/flaskserver_proxy /etc/nginx/sites-enabled
 sudo systemctl restart nginx
 ```
+![image](https://user-images.githubusercontent.com/44192542/178710717-653a0cd5-75cd-498e-90dd-500abead6e34.png)
+
 
 ## Enable auto-restart for uWSGI
 Navigate to the system folder and create a new service file for uWSGI.
@@ -118,3 +123,5 @@ sudo systemctl enable uwsgi.service
 
 ## Accessing the Flask Website
 Once set-up is complete, check if the website is accessible via the IP of the Raspberry Pi. *You do not need to add the port at the back*
+![image](https://user-images.githubusercontent.com/44192542/178711077-8cfdd059-6798-487c-82d5-abfe3bc32b55.png)
+
