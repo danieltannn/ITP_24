@@ -18,6 +18,7 @@ reference: https://singleboardbytes.com/1002/running-flask-nginx-raspberry-pi.ht
 ## Installing dependencies:
 ```
 sudo apt update
+sudo apt upgrade
 sudo apt install nginx python3-pip build-essential python-dev
 sudo pip install flask uwsgi
 ```
