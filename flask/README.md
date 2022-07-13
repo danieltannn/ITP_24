@@ -1,10 +1,19 @@
-# To Do List
+# Task List
 - [ ] Send data without exposing on the Flask server's front-end
 - [ ] Integrate with encryption script
 - [ ] Extra Feature: Heartbeat - timeout if poll request is not being received by server
 
+---
+
 # Setting up Flask in Raspberry Pi
 reference: https://singleboardbytes.com/1002/running-flask-nginx-raspberry-pi.htm
+
+## Prequisites
+1. RPi is running Raspbian OS
+2. Ethernet Gadget mode is enabled on RPi
+3. Laptop is able to recognise RPi as an Ethernet Gadget
+### Optional
+- Static IP for interface usb0 is set
 
 ## Installing dependencies:
 ```
