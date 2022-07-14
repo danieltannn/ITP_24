@@ -29,7 +29,7 @@
    ```
    sudo nano /usr/bin/composite_usb
    ```
-   Can either just copy in the already created one on this github named "compositemode_autoRNDIS", which gives you Ethernet Mode, Serial Mode and HID. At the same time it also allows auto installation of RNDIS driver which will be needed to install manually for Ethernet Mode(seen below).  
+   Can either just copy in the already created one on this github named "composite_gadget_autoRNDIS", which gives you Ethernet Mode, Serial Mode and HID. At the same time it also allows auto installation of RNDIS driver which will be needed to install manually for Ethernet Mode(seen below).  
    
    If you wan to manually configure it, the skeleton bash script is shown here: 
    ```
