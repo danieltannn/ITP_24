@@ -29,7 +29,9 @@
    ```
    sudo nano /usr/bin/composite_usb
    ```
-   Can either just use the already created one on this github, which gives you Ethernet Mode, Serial Mode and HID
+   Can either just use the already created one on this github, which gives you Ethernet Mode, Serial Mode and HID. At the same time it also allows auto installation of RNDIS driver which will be needed to install manually for Ethernet Mode(seen below).  
+   
+   If you wan to manually configure it, the skeleton bash script is shown here: 
    ```
    #!/bin/bash
    cd /sys/kernel/config/usb_gadget/
