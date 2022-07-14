@@ -29,6 +29,7 @@
    ```
    sudo nano /usr/bin/composite_usb
    ```
+   Can either just use the already created one on this github, which gives you Ethernet Mode, Serial Mode and HID
    ```
    #!/bin/bash
    cd /sys/kernel/config/usb_gadget/
