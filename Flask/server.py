@@ -1,14 +1,14 @@
 from flask import Flask, jsonify, request
-import base64
+from functions import *
 
 app = Flask(__name__)
 
-blacklist = ['telegram', 'whatsapp', 'spotify']
-TRIGGER = 0
-updateInterval = False
+HTTP_METHODS = ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH', 'BREW']
 
-@app.route("/", methods = ['POST'])
+@app.route("/", methods = HTTP_METHODS)
 def index():
+    global TRIGGER, UPDATEINTERVAL
+
     """POST - Receive data that was captured by the proctoring script
 
     Keyword arguments:
@@ -23,10 +23,13 @@ def index():
         "AMD" : "3",
         "PL" : "[Telegram.exe, google, svchost, ...]"
     }
-    Return: encrypted and encoded dictionary in JSON
+    Return: encrypted and encoded data in JSON
     """
     if request.method == 'POST':
         data = request.get_json()
+        category = ''
+        decoded = ''
+        process_list = [] # we want the list to reset to empty everytime, if not the result will stack
         """
         Have to check for key to know the different proctoring feature's data that had been sent
         Since we will be sending different proctoring results at different timings
@@ -34,65 +37,53 @@ def index():
         """
         if data:
             if 'AWD' in data:
-                decoded = base64.b64decode(data['AWD']).decode('UTF-16LE') # decoding data
-                '''
-                Things to do: after decoding we need to process -> encrypt "decoded". 
-                '''
-                return '{data}'.format(data=decoded) # Things to do: Send encoded + encrypted data back instead of decoded
+                # decoding data
+                category = 'AWD'
+                decoded = decodebase64(data[category]) 
+                
+                # processing data
+                processing(decoded, category)
+
+                return jsonify(constructResponse(decoded, category, gen_key()))
             
             if 'AMD' in data:
-                decoded = base64.b64decode(data['AMD']).decode('UTF-16LE') # decoding data
-                '''
-                Things to do: after decoding we need to process -> encrypt "decoded" -> encode. 
-                '''
-                return '{data}'.format(data=decoded) # Things to do: Send encoded + encrypted data back instead of decoded
-            
-            if 'PS' in data: 
-                process_list = [] # we want the list to reset to empty everytime, if not the result will stack
-                for items in data['PS']: # decoding a list of encoded data
-                    decoded = base64.b64decode(items).decode('UTF-16LE')
-                    '''
-                    Things to do: after decoding we need to process -> encrypt "decoded" -> encode. 
-                    '''
-                    process_list.append(decoded) # Things to do: Append encryped data
-                return '{data}'.format(data=process_list) # Things to do: Send encoded + encrypted data list back instead of decoded
-            
-            if 'OW' in data: 
-                process_list = [] # we want the list to reset to empty everytime, if not the result will stack
-                for items in data['OW']: # decoding a list of encoded data
-                    decoded = base64.b64decode(items).decode('UTF-16LE')
-                    '''
-                    Things to do: after decoding we need to process -> encrypt "decoded" -> encode. 
-                    '''
-                    process_list.append(decoded) # Things to do: Append encryped data
-                return '{data}'.format(data=process_list) # Things to do: Send encoded + encrypted data list back instead of decoded
+                category = 'AMD'
+                # decoding data
+                decoded = decodebase64(data[category])
 
-def processing(data):
-    global TRIGGER, updateInterval
-    try:
-        if data["AWD"] in blacklist:
-            TRIGGER += 1
-            print(data["AWD"])
-            updateInterval = True
-    except Exception as e:
-        print(e)
+                # processing data
+                processing(decoded, category)
+
+                return jsonify(constructResponse(decoded, category, gen_key()))
+            
+            if 'PL' in data:
+                category = 'PL'
+                # decoding each item in the list of data
+                for item in data[category]:
+                    decoded = decodebase64(item)
+                    process_list.append(decoded)
+
+                # processing data
+                processing(process_list, category)
+
+                return jsonify(constructResponse(process_list, category, gen_key()))
+
+            if 'OW' in data:
+                category = 'OW'
+                # decoding each item in the list of data
+                for item in data[category]:
+                    decoded = decodebase64(item)
+                    process_list.append(decoded)
+                
+                # processing data
+                processing(process_list, category)
+
+                return jsonify(constructResponse(process_list, category, gen_key()))
+
+    # if any other methods were used but not allowed, return 200, success
+    else:
+        return ('', 200)
     
-    try:
-        if int(data["AMD"]) > 4:
-            TRIGGER += 1
-            print(data["AMD"])
-            updateInterval = True
-    except Exception as e:
-        print(e)
-
-    try:
-        if any(element in data["PL"] for element in blacklist):
-            TRIGGER += 1
-            print(data["PL"])
-            updateInterval = True
-    except Exception as e:
-        print(e)
-            
 if __name__ == "__main__":
     app.run(host='0.0.0.0',debug=True)
 
