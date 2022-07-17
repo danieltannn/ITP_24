@@ -1,6 +1,7 @@
 # Task List
-- [ ] Send data without exposing on the Flask server's front-end
-- [ ] Integrate with encryption script
+- [x] Send data without exposing on the Flask server's front-end
+- [x] Integrate with Symmetric encryption
+- [ ] Integration with Asymmetric encryption
 - [ ] Extra Feature: Heartbeat - timeout if poll request is not being received by server
 
 ---

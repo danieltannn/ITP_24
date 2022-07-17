@@ -28,3 +28,9 @@ Reference materials:
 - https://github.com/klezVirus/chameleon
 - https://github.com/JoelGMSec/Invoke-Stealth
 - https://www.blackhat.com/docs/us-17/thursday/us-17-Bohannon-Revoke-Obfuscation-PowerShell-Obfuscation-Detection-And%20Evasion-Using-Science.pdf
+
+# 4. Flask Server
+Shows how to set-up a flask server on the Raspberry Pi that will be used for communication between the student's PC and the RPi
+
+References:
+- https://singleboardbytes.com/1002/running-flask-nginx-raspberry-pi.htm
