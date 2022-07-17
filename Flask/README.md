@@ -33,6 +33,10 @@ Create a python file for the server code or transfer the `server.py` file from t
 ```
 sudo nano server.py
 ```
+Create another python file for the functions used by the server or transfer the `functions.py` file from this repository
+```
+sudo nano functions.py
+```
 
 ## Testing uWSGI
 In the RPi run, `uwsgi --socket 0.0.0.0:8000 --protocol=http -w server:app`
