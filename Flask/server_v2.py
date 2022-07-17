@@ -1,4 +1,3 @@
-from winreg import HKEY_LOCAL_MACHINE
 from flask import Flask, jsonify, request
 import base64
 
