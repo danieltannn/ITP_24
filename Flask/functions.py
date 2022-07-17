@@ -41,7 +41,14 @@ def constructResponse(data, category, key):
     response["1"] = encrypt_text(str(TRIGGER), key)
     response["2"] = encrypt_text(str(UPDATEINTERVAL), key)
     response["3"] = encrypt_text(category, key)
-    response["4"] = encrypt_text(data, key)
+    if category in ['OW', 'PL']:
+        data_list = []
+        for item in data:
+            data_list.append(encrypt_text(item, key))
+            print(data_list)
+        response["4"] = data_list
+    else:
+        response["4"] = encrypt_text(data, key)
     response["5"] = key.decode('utf-8')
 
     # update flag
