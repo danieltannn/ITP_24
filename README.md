@@ -34,3 +34,10 @@ Shows how to set-up a flask server on the Raspberry Pi that will be used for com
 
 References:
 - https://singleboardbytes.com/1002/running-flask-nginx-raspberry-pi.htm
+
+# 5. Encryption
+To ensure secure transmission of data and prevent data from being manipulated during transfer, we adopt the hybrid encryption (asymmetric and symmetric encryption used together) for our project.
+## 5.1. Asymmetric
+RSA is used for the project's public-key encryption as it is one of the widely used public-key cryptosystem and can be easily adopted in our project through existing libraries (i.e. Python's cryptography library).
+## 5.2. Symmetric
+Fernet is used for the project's symmetric key encryption as it is one of the method available in Python's cryptography library. Fernet also has security features which ensure that data is securely encrypted before transmission.
