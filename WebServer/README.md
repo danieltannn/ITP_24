@@ -19,13 +19,13 @@ Download XAMPP: https://www.apachefriends.org/
 2. PHP Library (7.0 and above)
 3. SQL Server (Maria DB, MySQL or any other suitable SQL Server)
 4. Fernet (PHP `hash` Extension and `openssl` or `mcrypt` Extension)
-  - Reference: https://github.com/kelvinmo/fernet-php
-  - Used to decrypt the JSON data sent from the user's PC (AFTER LAYER 2 ENCRYPTION)
+   - Reference: https://github.com/kelvinmo/fernet-php
+   - Used to decrypt the JSON data sent from the user's PC (AFTER LAYER 2 ENCRYPTION)
 5. Bootstrap (5.2)
-  - Used to beautify the admin panel
+   - Used to beautify the admin panel
 6. DataTables
-  - Reference: https://datatables.net/
-  - Utilized for easy sorting of the data stored on the SQL Server
+   - Reference: https://datatables.net/
+   - Utilized for easy sorting of the data stored on the SQL Server
 
 ## Features/Files
 ```
