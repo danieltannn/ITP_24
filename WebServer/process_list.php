@@ -64,9 +64,14 @@ $fernet = new Fernet($key);
 $trigger_count = $fernet->decode($array[1]);
 $trigger = $fernet->decode($array[2]);
 $category = $fernet->decode($array[3]);
-$data = $fernet->decode($array[4]);
+	foreach ($array['4'] as $raw_data) {
+		//var_dump($raw_data);
+		$data_inside_list = $fernet->decode($raw_data);
+		$data .= $data_inside_list . ", ";
+	}
+$data = substr($data, 0, -2);
 
-$object6 = $array[6]; // UUID Encoded in BASE64 (UTF-16)
+$object6 = $array[6]; // UUID Encoded in BASE64 (UTF-16LE)
 $UUID = mb_convert_encoding(base64_decode($object6), "UTF-16"); //Decoding
 $UUID = preg_replace('/[[:^print:]]/', '', $UUID); //Removing Non Printable Characters
 

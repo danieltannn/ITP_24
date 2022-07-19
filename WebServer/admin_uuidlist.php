@@ -3,7 +3,7 @@
     
 <head>
     
-<title>ITP24 Admin Panel</title>
+<title>ITP24 Admin Panel (UUID List)</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
@@ -41,10 +41,7 @@ $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpa
         <thead>
             <tr>
                 <th>UUID</th>
-                <th>Trigger Count</th>
-                <th>Category</th>
-                <th>Data</th>
-                <th>Date & Time</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -53,35 +50,23 @@ $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpa
 if ($conn->connect_error) {
     $errorMsg = "Connection failed: " . $conn->connect_error;
 } else {
-    $sql = $conn->prepare("SELECT * FROM proctoring");
+    $sql = $conn->prepare("SELECT DISTINCT uuid FROM proctoring;");
     $sql->execute() or die();
-    $sql->bind_result($id, $UUID, $trigger_count, $category, $data, $date_time) or die();
+    $sql->bind_result($UUID) or die();
     while ($sql->fetch()) {
     echo '<tr>'; //Declare Header of Table Row
     
     echo '<td>' . $UUID . '</td>';
-    echo '<td>' . $trigger_count . '</td>';
-    echo '<td>' . $category . '</td>';
-    echo '<td>' . $data . '</td>';
-    echo '<td>' . $date_time . '</td>';
+    echo '<td><form action="admin_uuidlist_delete.php" method="POST">';
+    echo '<input type="hidden" name="uuid" id="uuid" value="' . $UUID . '">';
+    echo '<button class="btn btn-danger" type="submit"> Delete </button>';
+    echo '</form></td>';
     echo '</tr>';
     }
 }
 ?>
             
         </tbody>
-        <!--<tfoot>
-            <tr>
-                <th>UUID</th>
-                <th>AWD</th>
-                <th>AMD</th>
-                <th>PL</th>
-                <th>OW</th>
-                <th>Admin Override</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </tfoot>-->
     </table>
 
 <script>

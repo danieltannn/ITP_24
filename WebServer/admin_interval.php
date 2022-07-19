@@ -3,7 +3,7 @@
     
 <head>
     
-<title>ITP24 Admin Panel</title>
+<title>ITP24 Admin Panel (Intervals)</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
@@ -22,8 +22,6 @@
 
 </head>
 
-
-
 <body>
     
 <?php include 'nav_bar.php'; ?>
@@ -41,10 +39,13 @@ $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpa
         <thead>
             <tr>
                 <th>UUID</th>
-                <th>Trigger Count</th>
-                <th>Category</th>
-                <th>Data</th>
-                <th>Date & Time</th>
+                <th>AWD</th>
+                <th>AMD</th>
+                <th>PL</th>
+                <th>OW</th>
+                <th>Admin Override</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -53,17 +54,33 @@ $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpa
 if ($conn->connect_error) {
     $errorMsg = "Connection failed: " . $conn->connect_error;
 } else {
-    $sql = $conn->prepare("SELECT * FROM proctoring");
+    $sql = $conn->prepare("SELECT * FROM intervals");
     $sql->execute() or die();
-    $sql->bind_result($id, $UUID, $trigger_count, $category, $data, $date_time) or die();
+    $sql->bind_result($UUID, $AWD, $AMD, $PL, $OW, $admin_override) or die();
     while ($sql->fetch()) {
     echo '<tr>'; //Declare Header of Table Row
     
     echo '<td>' . $UUID . '</td>';
-    echo '<td>' . $trigger_count . '</td>';
-    echo '<td>' . $category . '</td>';
-    echo '<td>' . $data . '</td>';
-    echo '<td>' . $date_time . '</td>';
+    echo '<td>' . $AWD . '</td>';
+    echo '<td>' . $AMD . '</td>';
+    echo '<td>' . $PL . '</td>';
+    echo '<td>' . $OW . '</td>';
+    echo '<td>' . $admin_override . '</td>';
+    
+    echo '<td><form action="admin_interval_edit.php" method="POST">';
+    echo '<input type="hidden" name="uuid" id="uuid" value="' . $UUID . '">';
+    echo '<input type="hidden" name="AWD" id="AWD" value="' . $AWD . '">';
+    echo '<input type="hidden" name="AMD" id="AMD" value="' . $AMD . '">';
+    echo '<input type="hidden" name="PL" id="PL" value="' . $PL . '">';
+    echo '<input type="hidden" name="OW" id="OW" value="' . $OW . '">';
+    echo '<input type="hidden" name="admin_override" id="admin_override" value="' . $admin_override . '">';
+    echo '<button class="btn btn-primary" type="submit">Edit</button>';
+    echo '</form></td>';
+    
+    echo '<td><form action="admin_interval_delete.php" method="POST">';
+    echo '<input type="hidden" name="uuid" id="uuid" value="' . $UUID . '">';
+    echo '<button class="btn btn-danger" type="submit"> Delete </button>';
+    echo '</form></td>';
     echo '</tr>';
     }
 }
