@@ -32,11 +32,13 @@ Download XAMPP: https://www.apachefriends.org/
 index.php
 ```
 - Displays the decrypted and decoded JSON data stored inside database
+&nbsp;
 
 ```
 nav_bar.php
 ```
 - Navigation Bar used for all the pages for easy maneuvering
+&nbsp;
 
 ```
 upload.php, upload_process.php
@@ -45,6 +47,7 @@ upload.php, upload_process.php
 - Only allows `ps1` as the file type and `proctoring_script.ps1` as the file name
 - This feature should not be implemented in live production. It is purely for convenience purposes during testing only.
 - The proctoring script will be stored in the `uploads` folder. The `uploads` folder has to be created beforehand for this feature to work.
+&nbsp;
 
 ```
 process.php, process_list.php
@@ -55,6 +58,7 @@ process.php, process_list.php
 - Default interval values of 300 seconds will be initialized on first instance of receiving the JSON data for a unique UUID.
 - Interval values will be shortened automatically when triggered, provided that administrator(s) does not override the interval values. (E.g. User's PC is running suspicious softwares)
 - The decoded and decrypted JSON data will then be stored on SQL Server for analysis or viewing purposes.
+&nbsp;
 
 ```
 Fernet.php
@@ -62,23 +66,27 @@ Fernet.php
 - Fernet: A symmetric encryption that encrypts data with a generated key.
 - Reference: https://github.com/kelvinmo/fernet-php
 - The JSON data will be encrypted with Fernet before it is being sent over to the Web Server, alongside with the key for the Web Server to decrypt and process the data.
+&nbsp;
 
 ```
 interval.php
 ```
 - For the proctoring script to continually poll and retrieve the interval values for the various categories via GET parameters encoded with BASE64(UTF-16LE)
 - Example: `https://hostingserver.com/interval.php?uuid=MQAyADMANAA1ADYANwA4ADkA&category=QQBXAEQA`
+&nbsp;
 
 ```
 admin_interval.php, admin_interval_delete.php, admin_interval_delete_process.php, admin_interval_edit.php, admin_interval_edit_process.php
 ```
 - For the administrator(s) to edit or delete the interval values for the various categories.
 - When the parameter `admin_override` is `true` or `1`, the proctoring script will no longer be able to automatically change the interval values
+&nbsp;
 
 ```
 admin_uuidlist.php, admin_uuidlist_delete.php, admin_uuidlist_delete_process.php
 ```
 - For the administrator(s) to view the unique UUIDs and delete all data pertaining to a specified UUID for housekeeping purposes.
+&nbsp;
 
 ## Test Run
 Run the following commands in PowerShell after the PowerShell Execution Policy has been set to `unrestricted` or `remotesigned`
