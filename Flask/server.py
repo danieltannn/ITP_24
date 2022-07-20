@@ -37,15 +37,19 @@ def index():
         Data is sent in base64 encoding
         """
         if data:
+            # check if incoming data is the Public Key
             if "PuK" in data:
+                # process the public key
                 store_public_key(data["PuK"])
                 PuK = True
                 return ('', 200)
 
+            # check if there is a Public Key stored before processing the data
             elif PuK:
                 if 'AWD' in data:
-                    # decoding data
                     category = 'AWD'
+                    # decoding data
+                    # decode the data from base64 and convert to readable text
                     decoded = decodebase64(data[category]) 
                     
                     # processing data
@@ -56,6 +60,7 @@ def index():
                 if 'AMD' in data:
                     category = 'AMD'
                     # decoding data
+                    # decode the data from base64 and convert to readable text
                     decoded = decodebase64(data[category])
 
                     # processing data
@@ -67,6 +72,7 @@ def index():
                     category = 'PL'
                     # decoding each item in the list of data
                     for item in data[category]:
+                        # decode the data from base64 and convert to readable text
                         decoded = decodebase64(item)
                         process_list.append(decoded)
 
@@ -79,6 +85,7 @@ def index():
                     category = 'OW'
                     # decoding each item in the list of data
                     for item in data[category]:
+                        # decode the data from base64 and convert to readable text
                         decoded = decodebase64(item)
                         process_list.append(decoded)
                     
@@ -87,6 +94,7 @@ def index():
 
                     return jsonify(constructResponse(process_list, category, gen_key()))
             else:
+                # return 404, not found if there is no public key and data is received
                 return('Public key not found', 404)
 
     # if any other methods were used but not allowed, return 200, success

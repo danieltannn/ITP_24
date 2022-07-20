@@ -9,11 +9,15 @@ blacklist = ['telegram', 'whatsapp', 'spotify']
 
 # function to decode base64
 def decodebase64(base64_message):
+    # convert the base64 message into bytes
     base64_bytes = base64_message.encode('ascii')
+    # decode the bytes from the base64 message
     message_bytes = base64.b64decode(base64_bytes)
+    # convert the decoded message into a readable string
     message = message_bytes.decode('ascii')
     return message
 
+# function to process the data received from the Student's PC
 def processing(data, category):
     global TRIGGER, UPDATEINTERVAL
     try:
@@ -38,20 +42,29 @@ def constructResponse(data, category, key):
     response = {}
 
     # encrypt data and add to response dictionary
+    # "1" : Number of times student has been "flagged"/ triggered, encrypted with Fernet
     response["1"] = encrypt_text(str(TRIGGER), key)
+    # "2" : Flag to dynamically update the frequency data is sent by the Student PC, encrypted with Fernet
     response["2"] = encrypt_text(str(UPDATEINTERVAL), key)
+    # "3" : The category of the data received, encrypted with Fernet i.e OW = List of opened windows
     response["3"] = encrypt_text(category, key)
+
+    # check for category where data is a list
+    # "4" : data that was received from the Student's PC, encrypted with Fernet
     if category in ['OW', 'PL']:
         data_list = []
+        # encrypt each item in the list
         for item in data:
             data_list.append(encrypt_text(item, key))
         response["4"] = data_list
     else:
         response["4"] = encrypt_text(data, key)
+    # "5" : Symmetric key used to encrypt data, encrypted using RSA and invigilator portal's public key
     response["5"] = encrypt_key(key)
+    # "6" : MAC address of device, encrypted with Fernet
     response["6"] = encrypt_text(gma(), key)
     
-    # update flag
+    # reset flag
     UPDATEINTERVAL = False
     return response
 
@@ -62,16 +75,25 @@ def gen_key():
 
 def store_public_key(key):
     global PUBLICKEY
+    # uncomment next line if server is only sending the body of the key
+    #key = "-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----"
+
+    # convert the string from payload into an RSA key and store it in the global variable
     PUBLICKEY = rsa.PublicKey.load_pkcs1_openssl_pem(key.encode('utf-8'))
     return
 
 def encrypt_text(plaintext, key):
+    # convert the text to bytes
     encodedtext = plaintext.encode('utf-8')
     fernet = Fernet(key)
+    # encrypt the bytes using fernet
     ciphertext = fernet.encrypt(encodedtext)
+    # convert the ciphertext into a readable string and return
     return ciphertext.decode('utf-8')
 
 def encrypt_key(key):
     global PUBLICKEY
+    # encrypt the key using RSA and the public key of the invigilator portal
     encryptedkey = rsa.encrypt(key, PUBLICKEY)
+    # encode the result in base64 and convert it into a readable string
     return base64.b64encode(encryptedkey).decode('utf-8')
