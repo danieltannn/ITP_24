@@ -1,8 +1,7 @@
 # Task List
 - [x] Send data without exposing on the Flask server's front-end
 - [x] Integrate with Symmetric encryption
-- [ ] Integration with Asymmetric encryption
-- [ ] Extra Feature: Heartbeat - timeout if poll request is not being received by server
+- [x] Integration with Asymmetric encryption
 
 ---
 
@@ -21,7 +20,7 @@ reference: https://singleboardbytes.com/1002/running-flask-nginx-raspberry-pi.ht
 sudo apt update
 sudo apt upgrade
 sudo apt install nginx python3-pip build-essential python-dev
-sudo pip install flask uwsgi
+sudo pip install flask uwsgi cryptography getmac rsa
 ```
 
 ## Creating directory for flask application
