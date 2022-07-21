@@ -7,6 +7,7 @@
 - [x] Store proctoring script on Web Server for the RaspberryPi to access and run without downloading
 - [x] Generate Asymmetric Key Pair (RSA) for RaspberryPi to encrypt the Fernet Key with RSA's Public Key
 - [x] Decrypt Fernet Key with RSA's Private Key
+- [ ] Implement 'Heartbeat' for Proctoring Script
 
 ---
 
@@ -14,7 +15,7 @@
 Currently hosted on Hostinger for testing purposes.
 Alternatively, you may host this on your own hosting environment or utilize [XAMPP](https://www.apachefriends.org/).
 
----
+
 
 ## Prequisites & Resources Used
 1. Web Hosting Environment
@@ -36,24 +37,24 @@ index.php
 ```
 - Displays the decrypted and decoded JSON data stored inside database
 
----
+
 
 ```
 nav_bar.php
 ```
 - Navigation Bar used for all the pages for easy maneuvering
 
----
+
 
 ```
 upload.php, upload_process.php
 ```
 - For administrator to upload the proctoring script onto the Web Server.
 - Only allows `ps1` as the file type and `proctoring_script.ps1` as the file name
-- This feature should not be implemented in live production. It is purely for convenience purposes during testing only.
-- The proctoring script will be stored in the `uploads` folder. The `uploads` folder has to be created beforehand for this feature to work.
+- This feature should not be implemented in live production. It is purely for convenience purposes during testing only
+- The proctoring script will be stored in the `uploads` folder. The `uploads` folder has to be created beforehand for this feature to work
 
----
+
 
 ```
 process.php, process_list.php
@@ -65,16 +66,16 @@ process.php, process_list.php
 - Interval values will be shortened automatically when triggered, provided that administrator(s) does not override the interval values. (E.g. Detected suspicious softwares running on User's PC)
 - The decoded and decrypted JSON data will then be stored on SQL Server for analysis or viewing purposes
 
----
+
 
 ```
 Fernet.php
 ```
-- Fernet: A symmetric encryption that encrypts data with a generated key.
+- Fernet: A symmetric encryption that encrypts data with a generated key
 - Reference: https://github.com/kelvinmo/fernet-php
-- The JSON data will be encrypted with Fernet before it is being sent over to the Web Server, alongside with the key for the Web Server to decrypt and process the data.
+- The JSON data will be encrypted with Fernet before it is being sent over to the Web Server, alongside with the key for the Web Server to decrypt and process the data
 
----
+
 
 ```
 interval.php
@@ -82,22 +83,30 @@ interval.php
 - For the proctoring script to continually poll and retrieve the interval values for the various categories via GET parameters encoded with BASE64(UTF-16LE)
 - Example: `https://hostingserver.com/interval.php?uuid=MQAyADMANAA1ADYANwA4ADkA&category=QQBXAEQA`
 
----
+
 
 ```
 admin_interval.php, admin_interval_delete.php, admin_interval_delete_process.php, admin_interval_edit.php, admin_interval_edit_process.php
 ```
-- For the administrator(s) to edit or delete the interval values for the various categories.
+- For the administrator(s) to edit or delete the interval values for the various categories
 - When the parameter `admin_override` is `true` or `1`, the proctoring script will no longer be able to automatically change the interval values
 
----
+
 
 ```
 admin_uuidlist.php, admin_uuidlist_delete.php, admin_uuidlist_delete_process.php
 ```
-- For the administrator(s) to view the unique UUIDs and delete all data pertaining to a specified UUID for housekeeping purposes.
+- For the administrator(s) to view the unique UUIDs and delete all data pertaining to a specified UUID for housekeeping purposes
 
----
+
+
+```
+rsa_key_generation.php, rsa_key_generation_process.php
+```
+- For the administrator(s) generate an asymmetric RSA Key pair
+- The Public Key of the asymmetric RSA Key Pair will be used by the RaspberryPi to encrypt the Fernet Key, which will be used to encrypt the rest of the JSON Data before forwarding it to the Web Server.
+- The Private Key will be kept safe on the Web Server (Invigilator's Portal) and will be used to decrypt the Fernet Key, which will then be used to decrypt the rest of the incoming JSON Data. 
+- The Public Key and Private Key of our asymmetric RSA Key Pair are labelled `public_rsa.key` and `private_rsa.key` respectively for convenience. The label should be randomly generated in live production for security purposes.
 
 ## Test Run
 Run the following commands in PowerShell after the PowerShell Execution Policy has been set to `unrestricted` or `remotesigned`
