@@ -1,25 +1,21 @@
 <?php
 
-//For Troubleshooting Purposes
+//====================================
+//     Troubleshooting Parameters
+//====================================
 //ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
-//SQL Connection & Credentials Set Up
+//=============================================
+//     SQL Connection & Credentials Set Up
+//=============================================
 $config = parse_ini_file('../../ITP_db_config.ini');
 $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
-//$conn new mysqli("servername", "db_username", "db_password", "db_name"); // For Personal Testing Purposes
-
-//SQL Connection Testing
-/*
-if ($conn->connect_errno) {
-    printf("Connect failed: %s\n", $conn->connect_error);
-    exit();
-}
-*/
+//$conn new mysqli("servername", "db_username", "db_password", "db_name");
 
 //====================================
-// Processing POST Request (JSON) here
+//     Decode POST Request (JSON)
 //====================================
 
 // Takes raw data from the request
@@ -33,7 +29,7 @@ $array = json_decode($rawdata, true); // JSON Format to Array
 //var_dump($array); //Testing & Troubleshooting Purposes
 
 //====================================
-//               FERNET
+//          JSON Data Format
 //====================================
 
 /*
@@ -49,35 +45,48 @@ $array = json_decode($rawdata, true); // JSON Format to Array
 *
 * Object 4      Data/Information   String      Encrypted with Fernet
 *
-* Object 5      Fernet Key         String      Not Encrypted/Encoded
+* Object 5      Fernet Key         String      Encrypted with RSA & Encoded in BASE64
 *
-* Object 6      UUID               String      Encoded in BASE64 (UTF-16)
+* Object 6      UUID               String      Encrypted with Fernet
 */
 
-require_once("Fernet.php"); //Execution will stop if the script contains or process meets an error. Alternatively, you may use "include_once" for this portion.
+//========================================
+// RSA Encryption (Decrypting Fernet Key)
+//========================================
 
+//Decoding Fernet Key (BASE64) & Decrypting Fernet Key with our generated Private Key (RSA)
+$RSA_privatekey = file_get_contents("RSA/private_rsa.key");
+$encryptedfernetkey = base64_decode($array[5]);
+openssl_private_decrypt($encryptedfernetkey, $fernetkey, $RSA_privatekey);
+
+//========================================
+//     Fernet (Symmetric Encryption)
+//  Decrypting the rest of the JSON Data
+//========================================
+
+require_once("Fernet/Fernet.php"); 
 use Fernet\Fernet;
 
-$key = $array[5]; //Fernet Key
-$fernet = new Fernet($key);
+$fernet = new Fernet($fernetkey); //Fernet Key
 
+$data = ""; //Define Data Variable
 $trigger_count = $fernet->decode($array[1]);
 $trigger = $fernet->decode($array[2]);
 $category = $fernet->decode($array[3]);
 $data = $fernet->decode($array[4]);
-
-$object6 = $array[6]; // UUID Encoded in BASE64 (UTF-16)
-$UUID = mb_convert_encoding(base64_decode($object6), "UTF-16"); //Decoding
-$UUID = preg_replace('/[[:^print:]]/', '', $UUID); //Removing Non Printable Characters
+$UUID = $fernet->decode($array[6]);
 
 //====================================
-//             PROCESSING
+//          Logging Parameters
 //====================================
 
-//Logging Parameters
 date_default_timezone_set('Asia/Singapore');
 $date_time = date('Y-m-d H:i:s');
 $date = date('Y-m-d');
+
+//===================================================
+// Validating specified UUID in `intervals` database
+//===================================================
 
 //Check if the UUID exists in the interval database
 $sql = "SELECT * FROM intervals WHERE uuid = '$UUID'";
@@ -92,7 +101,7 @@ if ($result->num_rows > 0) {
         $OW = $row["OW"]; 
         $admin_override = $row["admin_override"];
     }
-    //Place the interval values of the specified category into $interval_value
+    //Place the interval values of the specified category into $interval_data
     if ($category == "AWD") { $interval_data = $AWD; } 
     elseif ($category == "AMD") { $interval_data = $AMD; }
     elseif ($category == "PL") { $interval_data = $PL; }
@@ -101,6 +110,19 @@ if ($result->num_rows > 0) {
 else { 
     $uuid_exist = 0; 
 }
+
+//========================================================================
+//  Renaming $category (To be stored inside `proctoring` database later)
+//========================================================================
+
+if ($category == "AWD") { $category = "Active Windows Detection (AWD)"; } 
+elseif ($category == "AMD") { $category = "Active Monitor Detection (AMD)"; }
+elseif ($category == "PL") { $category = "Process List (PL)"; }
+elseif ($category == "OW") { $category = "Open Windows (OW)"; }
+
+//========================================================================
+//  Renaming $category (To be stored inside `proctoring` database later)
+//========================================================================
 
 //Insert default values if UUID does not exist yet in the interval database
 if ($uuid_exist == 0) {
@@ -123,7 +145,10 @@ else {
     //Do nothing if UUID already exists in the interval database
 }
 
-//Process Trigger (If True/1)
+//========================================================================
+// Process Trigger (If $trigger is true/1 and $admin_override is false/0)
+//========================================================================
+
 if ($trigger == 1 && $admin_override == 0) {
     
     if ($interval_data > 60) {
@@ -164,7 +189,10 @@ elseif ($admin_override == 1) {
     echo "Admin Override activated. Interval Value is currently defined by the Administrator.\n";
 }
 
-//Insert data into proctoring database
+//========================================================================
+//     Inserting Data into `proctoring` database for viewing/analysis
+//========================================================================
+
 $sql = "INSERT INTO proctoring (uuid, trigger_count, category, data, date_time) VALUES ('$UUID', '$trigger_count', '$category', '$data', '$date_time')";
 if (mysqli_query($conn, $sql)) {
     echo "Proctoring Data inserted successfully.\n";
@@ -174,9 +202,9 @@ if (mysqli_query($conn, $sql)) {
     error_log(print_r($error, true), 3, $_SERVER['DOCUMENT_ROOT'] . "/system_error.log");
 }
 
-//=====================
-// Close SQL Connection
-//=====================
+//=============================================
+//             Close SQL Connection
+//=============================================
 
 $conn->close();
 

@@ -21,6 +21,7 @@
             <li><a class="dropdown-item" href="admin_interval.php">Interval Configurations</a></li>
             <li><a class="dropdown-item" href="upload.php">Upload Proctoring Script</a></li>
             <li><a class="dropdown-item" href="admin_uuidlist.php">Delete Data for specified UUID</a></li>
+            <li><a class="dropdown-item" href="rsa_key_generation.php">RSA Asymmetric Key Pair Generation</a></li>
           </ul>
         </li>
       </ul>

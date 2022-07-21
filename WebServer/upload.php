@@ -1,16 +1,15 @@
-<?php
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-16">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<title>ITP24 Admin Panel (UUID List)</title>
 
-//Hide PHP Errors
-error_reporting(0);
-ini_set('display_errors', 0);
-?>
+</head>
 
-<!DOCTYPE html>
-<html>
-<body>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-
-    <style>
+<style>
 
 body {
   margin: 0;
@@ -69,26 +68,24 @@ body {
 }
 </style>
 
+<body>
+
 <?php include 'nav_bar.php'; ?>
 
 <style> #paddingDiv{ padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%; } </style> <div id="paddingDiv"> <!-- Padding applies to this area onwards -->
 	
-   <div class="col-md-6 offset-md-3 mt-5">
-        <br>
-        <h1>Upload Proctoring Script</h1>
-        <form enctype="multipart/form-data" action="upload_process.php" method="post">
-          <div class="form-group">
-  <div class="custom-file">
-    <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload" required>
-    <label class="custom-file-label" for="validatedCustomFile">Upload File Here...</label>
-  </div>
-  <!--<input type="file" name="fileToUpload" id="fileToUpload">-->
-          <hr>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div> 
+<div class="col-md-6 offset-md-3 mt-5">
+    <br>
+    <h1>Upload Proctoring Script</h1>
+    <form enctype="multipart/form-data" action="upload_process.php" method="post">
+    <div class="form-group">
+        <div>
+            <input class="form-control form-control-lg" id="fileToUpload" name="fileToUpload" type="file" required>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div> 
     
-
-
 </body>
 </html>

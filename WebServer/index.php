@@ -22,8 +22,6 @@
 
 </head>
 
-
-
 <body>
     
 <?php include 'nav_bar.php'; ?>
@@ -38,51 +36,39 @@ $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpa
 <style> #paddingDiv{ padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%; } </style> <div id="paddingDiv"> <!-- Padding applies to this area onwards -->
 
 <table id="datatable" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>UUID</th>
-                <th>Trigger Count</th>
-                <th>Category</th>
-                <th>Data</th>
-                <th>Date & Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-<?php
-if ($conn->connect_error) {
-    $errorMsg = "Connection failed: " . $conn->connect_error;
-} else {
-    $sql = $conn->prepare("SELECT * FROM proctoring");
-    $sql->execute() or die();
-    $sql->bind_result($id, $UUID, $trigger_count, $category, $data, $date_time) or die();
-    while ($sql->fetch()) {
-    echo '<tr>'; //Declare Header of Table Row
-    
-    echo '<td>' . $UUID . '</td>';
-    echo '<td>' . $trigger_count . '</td>';
-    echo '<td>' . $category . '</td>';
-    echo '<td>' . $data . '</td>';
-    echo '<td>' . $date_time . '</td>';
-    echo '</tr>';
+    <thead>
+        <tr>
+            <th>UUID</th>
+            <th>Trigger Count</th>
+            <th>Category</th>
+            <th>Data</th>
+            <th>Date & Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    <?php
+    if ($conn->connect_error) {
+        $errorMsg = "Connection failed: " . $conn->connect_error;
+    } else {
+        $sql = $conn->prepare("SELECT * FROM proctoring");
+        $sql->execute() or die();
+        $sql->bind_result($id, $UUID, $trigger_count, $category, $data, $date_time) or die();
+        while ($sql->fetch()) {
+        echo '<tr>'; //Declare Header of Table Row
+        
+        echo '<td>' . $UUID . '</td>';
+        echo '<td>' . $trigger_count . '</td>';
+        echo '<td>' . $category . '</td>';
+        echo '<td>' . $data . '</td>';
+        echo '<td>' . $date_time . '</td>';
+        echo '</tr>';
+        }
     }
-}
-?>
-            
-        </tbody>
-        <!--<tfoot>
-            <tr>
-                <th>UUID</th>
-                <th>AWD</th>
-                <th>AMD</th>
-                <th>PL</th>
-                <th>OW</th>
-                <th>Admin Override</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </tfoot>-->
-    </table>
+    ?>
+        
+    </tbody>
+</table>
 
 <script>
     $(document).ready(function() {

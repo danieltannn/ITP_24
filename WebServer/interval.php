@@ -1,33 +1,28 @@
 <?php
 
-//For Troubleshooting Purposes
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
-
-//SQL Connection & Credentials Set Up
+//=============================================
+//     SQL Connection & Credentials Set Up
+//=============================================
 $config = parse_ini_file('../../ITP_db_config.ini');
 $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
 //$conn new mysqli("servername", "db_username", "db_password", "db_name"); // For Personal Testing Purposes
 
-//SQL Connection Testing
-/*
-if ($conn->connect_errno) {
-    printf("Connect failed: %s\n", $conn->connect_error);
-    exit();
-}
-*/
-
-//Display Interval via UUID (GET METHOD)
+//==========================================================================
+//     Display Interval Value via Specified UUID & Category (GET METHOD)
+//==========================================================================
 if ($_GET["uuid"] != null && $_GET["category"] != null) {
     
     $uuid = $_GET["uuid"];
-    $UUID = mb_convert_encoding(base64_decode($uuid), "UTF-16"); //Base64 (UTF-16) Decode
+    $UUID = mb_convert_encoding(base64_decode($uuid), "UTF-16LE"); //Base64 (UTF-16LE) Decode
     $UUID = preg_replace('/[[:^print:]]/', '', $UUID); //Removing Non Printable Characters
     
     $category = $_GET["category"];
-    $CATEGORY = mb_convert_encoding(base64_decode($category), "UTF-16"); //Base64 (UTF-16) Decode
+    $CATEGORY = mb_convert_encoding(base64_decode($category), "UTF-16LE"); //Base64 (UTF-16LE) Decode
     $CATEGORY = preg_replace('/[[:^print:]]/', '', $CATEGORY); //Removing Non Printable Characters
+    
+    //==========================================================================
+    //            Retrieve Interval Value from `intervals` Database
+    //==========================================================================
     
     $sql = "SELECT * FROM intervals WHERE uuid = '$UUID'";
     $result = $conn->query($sql);
@@ -55,7 +50,10 @@ else {
     //Do Nothing (IF NO GET PARAMETERS)
 }
 
-//Close SQL Connection
+//=============================================
+//             Close SQL Connection
+//=============================================
+
 $conn->close();
 
 ?>
