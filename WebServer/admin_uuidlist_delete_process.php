@@ -26,8 +26,8 @@ $uuid = $_POST['uuid'];
 //             Logging Parameters
 //=============================================
 date_default_timezone_set('Asia/Singapore');
-$date_time = date('Y-m-d H:i:s');
-$date = date('Y-m-d');
+$date_time = date('d-m-Y H:i:s');
+$date = date('d-m-Y');
 
 //=============================================
 //     SQL Connection & Credentials Set Up
@@ -36,14 +36,25 @@ $config = parse_ini_file('../../ITP_db_config.ini');
 $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
 //$conn new mysqli("servername", "db_username", "db_password", "db_name"); // For Personal Testing Purposes
 
-//=================================================================
-//     Delete Data from `intervals` and `proctoring` Databases
-//=================================================================
+//============================================================================================
+//    Delete Data from `intervals`, `proctoring` and `ping` Databases and relevant log files
+//============================================================================================
 $sql = "DELETE FROM intervals WHERE uuid ='$uuid'";
 $sql2 = "DELETE FROM proctoring WHERE uuid ='$uuid'";
+$sql3 = "DELETE FROM ping WHERE uuid ='$uuid'";
 $conn->query($sql);
 $conn->query($sql2);
-    if ($conn->query($sql) == true && $conn->query($sql2) == true) {
+$conn->query($sql3);
+
+$logfilelocation = $_SERVER['DOCUMENT_ROOT'] . "/Heartbeat/" . $uuid . ".log";
+
+If (unlink($logfilelocation)) {
+  $log_file_deleted = true;
+} else {
+  $log_file_deleted = false;
+}
+
+    if ($conn->query($sql) == true && $conn->query($sql2) == true && $conn->query($sql3)  == true && $log_file_deleted == true) {
     echo '<div class="alert alert-success" role="alert">
     <h4 class="alert-heading">Delete Success!</h4>
     <p>The selected data has been successfully deleted.</p>

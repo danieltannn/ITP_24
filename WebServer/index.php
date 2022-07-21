@@ -27,7 +27,9 @@
 <?php include 'nav_bar.php'; ?>
     
 <?php
-//SQL Connection & Credentials Set Up
+//=============================================
+//     SQL Connection & Credentials Set Up
+//=============================================
 $config = parse_ini_file('../../ITP_db_config.ini');
 $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpassword'], $config['dbname']);
 //$conn new mysqli("servername", "db_username", "db_password", "db_name"); // For Personal Testing Purposes
@@ -48,6 +50,9 @@ $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpa
     <tbody>
         
     <?php
+    //=============================================
+    // Display All Data from `proctoring` Database
+    //=============================================
     if ($conn->connect_error) {
         $errorMsg = "Connection failed: " . $conn->connect_error;
     } else {

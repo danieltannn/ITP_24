@@ -26,8 +26,8 @@ $uuid = $_POST['uuid'];
 //             Logging Parameters
 //=============================================
 date_default_timezone_set('Asia/Singapore');
-$date_time = date('Y-m-d H:i:s');
-$date = date('Y-m-d');
+$date_time = date('d-m-Y H:i:s');
+$date = date('d-m-Y');
 
 //=============================================
 //     SQL Connection & Credentials Set Up

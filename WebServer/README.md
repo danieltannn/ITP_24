@@ -7,15 +7,13 @@
 - [x] Store proctoring script on Web Server for the RaspberryPi to access and run without downloading
 - [x] Generate Asymmetric Key Pair (RSA) for RaspberryPi to encrypt the Fernet Key with RSA's Public Key
 - [x] Decrypt Fernet Key with RSA's Private Key
-- [ ] Implement 'Heartbeat' for Proctoring Script
+- [x] Implement 'Heartbeat' Protocol for Proctoring Script to indicate connection status with the RaspberryPi
 
 ---
 
 # Web Server
 Currently hosted on Hostinger for testing purposes.
-Alternatively, you may host this on your own hosting environment or utilize [XAMPP](https://www.apachefriends.org/).
-
-
+Alternatively, you may host this on your own hosting environment or utilize [XAMPP](https://www.apachefriends.org/).  
 
 ## Prequisites & Resources Used
 1. Web Hosting Environment
@@ -29,22 +27,19 @@ Alternatively, you may host this on your own hosting environment or utilize [XAM
    - For beautification purposes
 6. DataTables
    - Reference: https://datatables.net/
-   - For its functionalities, ease of use and beautification purposes
+   - For its functionalities, ease of use and beautification purposes  
 
 ## Features/Files
 ```
 index.php
 ```
-- Displays the decrypted and decoded JSON data stored inside database
-
-
+- Displays the decrypted and decoded JSON data stored inside database  
+![image](https://user-images.githubusercontent.com/28032598/180282003-a66248b6-0c7e-4242-a0e5-fdf02155bd69.png)  
 
 ```
 nav_bar.php
 ```
-- Navigation Bar used for all the pages for easy maneuvering
-
-
+- Navigation Bar used for all the pages for easy maneuvering  
 
 ```
 upload.php, upload_process.php
@@ -52,9 +47,8 @@ upload.php, upload_process.php
 - For administrator to upload the proctoring script onto the Web Server.
 - Only allows `ps1` as the file type and `proctoring_script.ps1` as the file name
 - This feature should not be implemented in live production. It is purely for convenience purposes during testing only
-- The proctoring script will be stored in the `uploads` folder. The `uploads` folder has to be created beforehand for this feature to work
-
-
+- The proctoring script will be stored in the `uploads` folder. The `uploads` folder has to be created beforehand for this feature to work  
+![image](https://user-images.githubusercontent.com/28032598/180282140-b3753334-827f-4346-b6f1-909a4a413d2f.png)  
 
 ```
 process.php, process_list.php
@@ -64,53 +58,77 @@ process.php, process_list.php
 - The rest of the data will be decrypted with the decrypted Fernet Key
 - Default interval values of 300 seconds will be initialized on first instance of receiving the JSON data for a unique UUID
 - Interval values will be shortened automatically when triggered, provided that administrator(s) does not override the interval values. (E.g. Detected suspicious softwares running on User's PC)
-- The decoded and decrypted JSON data will then be stored on SQL Server for analysis or viewing purposes
-
-
+- The decoded and decrypted JSON data will then be stored on SQL Server for analysis or viewing purposes  
 
 ```
 Fernet.php
 ```
 - Fernet: A symmetric encryption that encrypts data with a generated key
 - Reference: https://github.com/kelvinmo/fernet-php
-- The JSON data will be encrypted with Fernet before it is being sent over to the Web Server, alongside with the key for the Web Server to decrypt and process the data
-
-
+- The JSON data will be encrypted with Fernet before it is being sent over to the Web Server, alongside with the key for the Web Server to decrypt and process the data  
 
 ```
 interval.php
 ```
 - For the proctoring script to continually poll and retrieve the interval values for the various categories via GET parameters encoded with BASE64(UTF-16LE)
-- Example: `https://hostingserver.com/interval.php?uuid=MQAyADMANAA1ADYANwA4ADkA&category=QQBXAEQA`
-
-
+- Example: `https://hostingserver.com/interval.php?uuid=MQAyADMANAA1ADYANwA4ADkA&category=QQBXAEQA`  
 
 ```
 admin_interval.php, admin_interval_delete.php, admin_interval_delete_process.php, admin_interval_edit.php, admin_interval_edit_process.php
 ```
 - For the administrator(s) to edit or delete the interval values for the various categories
 - When the parameter `admin_override` is `true` or `1`, the proctoring script will no longer be able to automatically change the interval values
-
-
+![image](https://user-images.githubusercontent.com/28032598/180281714-38d4eed7-5c3e-4d08-ac92-b6485bf31872.png)  
+![image](https://user-images.githubusercontent.com/28032598/180281829-c68b1959-188e-465c-810e-536973e28d8e.png)    
 
 ```
 admin_uuidlist.php, admin_uuidlist_delete.php, admin_uuidlist_delete_process.php
 ```
-- For the administrator(s) to view the unique UUIDs and delete all data pertaining to a specified UUID for housekeeping purposes
-
-
+- For the administrator(s) to view the unique UUIDs and delete all data and log files pertaining to a specified UUID for housekeeping purposes  
+![image](https://user-images.githubusercontent.com/28032598/180281528-2fae69eb-3050-40c1-acc4-49fa1bfb163b.png)  
 
 ```
 rsa_key_generation.php, rsa_key_generation_process.php
 ```
 - For the administrator(s) generate an asymmetric RSA Key pair
-- The Public Key of the asymmetric RSA Key Pair will be used by the RaspberryPi to encrypt the Fernet Key, which will be used to encrypt the rest of the JSON Data before forwarding it to the Web Server.
-- The Private Key will be kept safe on the Web Server (Invigilator's Portal) and will be used to decrypt the Fernet Key, which will then be used to decrypt the rest of the incoming JSON Data. 
-- The Public Key and Private Key of our asymmetric RSA Key Pair are labelled `public_rsa.key` and `private_rsa.key` respectively for convenience. The label should be randomly generated in live production for security purposes.
+- The Public Key of the asymmetric RSA Key Pair will be used by the RaspberryPi to encrypt the Fernet Key, which will be used to encrypt the rest of the JSON Data before forwarding it to the Web Server
+- The Private Key will be kept safe on the Web Server (Invigilator's Portal) and will be used to decrypt the Fernet Key, which will then be used to decrypt the rest of the incoming JSON Data
+- The Public Key and Private Key of our asymmetric RSA Key Pair are labelled `public_rsa.key` and `private_rsa.key` respectively for convenience. The label should be randomly generated in live production for security purposes 
+- Logs are generated each time a new asymmetric RSA Key Pair is generated 
+![image](https://user-images.githubusercontent.com/28032598/180281386-ef057798-a560-4a5d-a3a8-ac14f87c4a39.png)  
+![image](https://user-images.githubusercontent.com/28032598/180284486-83a03810-e821-4a08-85eb-24621967da3f.png)  
+
+```
+ping.php
+```
+- Acts as a heartbeat protocol. To receive periodic signals generated by the proctoring script to indicate normal operation
+- The proctoring script will stop sending periodic signals to `ping.php` immediately when the RaspberryPi is disconnected
+- Example: `https://hostingserver/ping.php?uuid=YgA4ADoAMgA3ADoAZQBiADoANQBhADoAMQBkADoAMAAzAA==`  
+
+```
+admin_ping_static.php, admin_ping_dynamic.php, admin_ping_process.php
+```
+- Displays the connection status of all RaspberryPi connected via the proctoring script (Heartbeat Protocol)
+- `admin_ping_static.php` displays the connection status of all RaspberryPi at the present moment
+- `admin_ping_dynamic.php` provides live updates via a Javascript function that refreshes the content in `admin-ping_process.php` every few seconds  
+![image](https://user-images.githubusercontent.com/28032598/180281168-9aebe18e-9298-458f-9131-dade4c4c4e8d.png)  
+
+```
+admin_ping_server.php, admin_ping_server_process.php
+```
+- `admin_ping_server.php` is to be left by the administrator during an examination or simulation to accurately capture the timestamp of the RaspberryPi connections and log them
+- `admin_ping_server_process.php` contains functions that are automatically executed every few seconds by `admin_ping_server.php` to look for updates
+- Live updates will be shown on the `admin_ping_server.php` page during the examination or simulation. 
+- The `admin_ping_server.php` page is to be closed after the examination or simulation has concluded
+![image](https://user-images.githubusercontent.com/28032598/180280489-ab0bbe5a-26ef-457b-83f7-f2f9e7279d88.png) 
+![image](https://user-images.githubusercontent.com/28032598/180282695-6555486e-1ae3-4bd2-b045-bdff5b1daa05.png)   
+![image](https://user-images.githubusercontent.com/28032598/180284321-00fabdb9-4705-4a95-b1dd-b7cc38c571ba.png)  
+
 
 ## Test Run
 Run the following commands in PowerShell after the PowerShell Execution Policy has been set to `unrestricted` or `remotesigned`
 This JSON data contains a list (The fourth element) and hence, we will forward the JSON data to `process_list.php` instead
+Remember to replace `https://hostingserver` with your own server's URL
 ```
 $data = '{  
     "1":  "gAAAAABi1E07uUtQTaJsuNIDn08eYJc1uHGoi_iZHXL0lSEROQdNeBNzL0N_wvUkoQQkDWIWJJA02X5Z2Yr1z1GynAWk3DWQfg==",  
@@ -126,7 +144,7 @@ $data = '{
 ```
 Invoke-WebRequest -Uri https://hostingserver/process_list.php -UseBasicParsing -Method POST -Body ($data|ConvertTo-Json) -ContentType "application/json"
 ```
-Generated RSA Private Key (To Decrypt our Fernet Key):
+Generated RSA Private Key (To Decrypt the Fernet Key):
 ```
 -----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA99cv0nnJHwRhrQz44siz
@@ -138,7 +156,7 @@ HWeIvq5B6KEswA3h4rftngI183gt/6ZaZvO89ybCHHKDjfhOiCIoUjlvuRbDrZFh
 ewIDAQAB
 -----END PUBLIC KEY-----
 ```
-Generated RSA Public Key (To Encrypt our Fernet Key):
+Generated RSA Public Key (To Encrypt the Fernet Key):
 ```
 -----BEGIN PRIVATE KEY----- 
 MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQD31y/SeckfBGGt
@@ -169,3 +187,5 @@ DV5RJ5XHoOEqffaAz5DXssLGk+lhZGsw+OeuoBJ+9PBmulV7ojpgTwQjEEvFpus/
 caIhb0WZRhMNvKxfxFv1fAMSHw==
 -----END PRIVATE KEY-----
 ```
+
+![image](https://user-images.githubusercontent.com/28032598/180282353-40cf8e68-1471-4b9d-bc52-7c03fc521129.png)  

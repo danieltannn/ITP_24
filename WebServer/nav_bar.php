@@ -22,7 +22,13 @@
             <li><a class="dropdown-item" href="upload.php">Upload Proctoring Script</a></li>
             <li><a class="dropdown-item" href="admin_uuidlist.php">Delete Data for specified UUID</a></li>
             <li><a class="dropdown-item" href="rsa_key_generation.php">RSA Asymmetric Key Pair Generation</a></li>
+            <li><a class="dropdown-item" href="admin_ping_dynamic.php">Connection Status (Heartbeat - Dynamic)</a></li>
+            <li><a class="dropdown-item" href="admin_ping_static.php">Connection Status (Heartbeat - Static)</a></li>
+            <li><a class="dropdown-item" href="admin_ping_server.php">Heartbeat Server</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" target='_blank' href="https://github.com/danieltannn/ITP_24">Github</a>
         </li>
       </ul>
       <span class="navbar-text">

@@ -23,13 +23,6 @@
 $uuid = $_POST['uuid'];
 
 //=============================================
-//             Logging Parameters
-//=============================================
-date_default_timezone_set('Asia/Singapore');
-$date_time = date('Y-m-d H:i:s');
-$date = date('Y-m-d');
-
-//=============================================
 //     SQL Connection & Credentials Set Up
 //=============================================
 $config = parse_ini_file('../../ITP_db_config.ini');

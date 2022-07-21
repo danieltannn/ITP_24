@@ -76,13 +76,12 @@ $category = $fernet->decode($array[3]);
 $data = $fernet->decode($array[4]);
 $UUID = $fernet->decode($array[6]);
 
-//====================================
-//          Logging Parameters
-//====================================
-
+//=============================================
+//             Logging Parameters
+//=============================================
 date_default_timezone_set('Asia/Singapore');
-$date_time = date('Y-m-d H:i:s');
-$date = date('Y-m-d');
+$date_time = date('d-m-Y H:i:s');
+$date = date('d-m-Y');
 
 //===================================================
 // Validating specified UUID in `intervals` database

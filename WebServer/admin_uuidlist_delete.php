@@ -30,13 +30,13 @@
 <div class="alert alert-danger d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
   <div>
-    <strong>Are you sure?</strong> The data deleted cannot be recovered. <br> You have selected the UUID: <?php echo $_POST['uuid']; ?>
+    <strong>Are you sure?</strong> Data deleted cannot be recovered. All data pertaining to this UUID will be deleted. <br> You have selected the UUID: <?php echo $_POST['uuid']; ?>
   </div>
 </div>
 
 <div class="d-grid gap-2 d-md-flex justify-content-center">
   <form action="admin_uuidlist_delete_process.php" method="POST">
-  <input type="hidden" name="uuid" id="uuid" value="<?php echo $uuid; ?>">
+  <input type="hidden" name="uuid" id="uuid" value="<?php echo $_POST['uuid']; ?>">
   <button class="btn btn-danger btn-lg" type="submit">Delete</button>
   </form>
   <form>

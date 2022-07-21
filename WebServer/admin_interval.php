@@ -41,10 +41,10 @@ $conn = new mysqli($config['dbservername'], $config['dbusername'], $config['dbpa
     <thead>
         <tr>
             <th>UUID</th>
-            <th>AWD</th>
-            <th>AMD</th>
-            <th>PL</th>
-            <th>OW</th>
+            <th>Active Windows Detection (AWD)</th>
+            <th>Active Monitor Detection (AMD)</th>
+            <th>Process List (PL)</th>
+            <th>Open Windows (OW)</th>
             <th>Admin Override</th>
             <th>Edit</th>
             <th>Delete</th>

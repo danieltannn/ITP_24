@@ -60,13 +60,12 @@ $pubKey = openssl_pkey_get_details($res);
 $pubKey = $pubKey["key"];
 file_put_contents('RSA/public_rsa.key', $pubKey);
 
-//====================================
-//          Logging Parameters
-//====================================
-
+//=============================================
+//             Logging Parameters
+//=============================================
 date_default_timezone_set('Asia/Singapore');
-$date_time = date('Y-m-d H:i:s');
-$date = date('Y-m-d');
+$date_time = date('d-m-Y H:i:s');
+$date = date('d-m-Y');
 
 $log = "The previous RSA asymmetric key pairs were generated on " . $date_time . "\n";
 error_log(print_r($log, true), 3, $_SERVER['DOCUMENT_ROOT'] . "/rsa_key_generation.log");
