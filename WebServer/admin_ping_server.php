@@ -31,7 +31,7 @@
 <p class="h1">Heartbeat Server</p>
 <p>Keep this page open in the background when the examination is going on to accurately capture the timestamp of all of our RaspberryPi connections.</p>
 <p>Remember to close this page when the examination ends to avoid inflating the log file.</p>
-<p>Relevant information pertaining to our RaspberryPi connections can be found at ping.log</p>
+<p>Detailed logs pertaining to our RaspberryPi connections can be viewed <a href="/admin_ping_server_logs.php" target="_blank">here</a>.</p>
 
 <div class="progress">
   <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
