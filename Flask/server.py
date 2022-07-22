@@ -42,7 +42,7 @@ def index():
                 # process the public key
                 store_public_key(data["PuK"])
                 PuK = True
-                return ('', 200)
+                return jsonify(constructMacResponse())
 
             # check if there is a Public Key stored before processing the data
             elif PuK:
@@ -55,7 +55,7 @@ def index():
                     # processing data
                     processing(decoded, category)
 
-                    return jsonify(constructResponse(decoded, category, gen_key()))
+                    return jsonify(constructDataResponse(decoded, category, gen_key()))
                 
                 if 'AMD' in data:
                     category = 'AMD'
@@ -66,7 +66,7 @@ def index():
                     # processing data
                     processing(decoded, category)
 
-                    return jsonify(constructResponse(decoded, category, gen_key()))
+                    return jsonify(constructDataResponse(decoded, category, gen_key()))
                 
                 if 'PL' in data:
                     category = 'PL'
@@ -79,7 +79,7 @@ def index():
                     # processing data
                     processing(process_list, category)
 
-                    return jsonify(constructResponse(process_list, category, gen_key()))
+                    return jsonify(constructDataResponse(process_list, category, gen_key()))
 
                 if 'OW' in data:
                     category = 'OW'
@@ -92,7 +92,7 @@ def index():
                     # processing data
                     processing(process_list, category)
 
-                    return jsonify(constructResponse(process_list, category, gen_key()))
+                    return jsonify(constructDataResponse(process_list, category, gen_key()))
             else:
                 # return 404, not found if there is no public key and data is received
                 return('Public key not found', 404)

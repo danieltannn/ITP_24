@@ -17,6 +17,12 @@ def decodebase64(base64_message):
     message = message_bytes.decode('ascii')
     return message
 
+def encodebase64(message):
+    message_bytes = message.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    base64_message = base64_bytes.decode('ascii')
+    return base64_message
+
 # function to process the data received from the Student's PC
 def processing(data, category):
     global TRIGGER, UPDATEINTERVAL
@@ -37,7 +43,7 @@ def processing(data, category):
         print(e)
 
 # Constructing JSON response, pending encryption integration
-def constructResponse(data, category, key):
+def constructDataResponse(data, category, key):
     global TRIGGER, UPDATEINTERVAL
     response = {}
 
@@ -68,6 +74,11 @@ def constructResponse(data, category, key):
     UPDATEINTERVAL = False
     return response
 
+def constructMacResponse():
+    response = {}
+    response["UUID"] = encodebase64(gma())
+    return response
+
 # Symmetric Encryption
 def gen_key():
     key = Fernet.generate_key()
@@ -78,8 +89,9 @@ def store_public_key(key):
     # uncomment next line if server is only sending the body of the key
     #key = "-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----"
 
+    decodedKey = decodebase64(key)
     # convert the string from payload into an RSA key and store it in the global variable
-    PUBLICKEY = rsa.PublicKey.load_pkcs1_openssl_pem(key.encode('utf-8'))
+    PUBLICKEY = rsa.PublicKey.load_pkcs1_openssl_pem(decodedKey.encode('utf-8'))
     return
 
 def encrypt_text(plaintext, key):
