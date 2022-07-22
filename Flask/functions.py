@@ -18,8 +18,11 @@ def decodebase64(base64_message):
     return message
 
 def encodebase64(message):
+    # convert the base64 message into bytes
     message_bytes = message.encode('ascii')
+    # decode the bytes from the base64 message
     base64_bytes = base64.b64encode(message_bytes)
+    # convert the decoded message into a readable string
     base64_message = base64_bytes.decode('ascii')
     return base64_message
 
@@ -89,6 +92,7 @@ def store_public_key(key):
     # uncomment next line if server is only sending the body of the key
     #key = "-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----"
 
+    # base64 decode public key received from the server
     decodedKey = decodebase64(key)
     # convert the string from payload into an RSA key and store it in the global variable
     PUBLICKEY = rsa.PublicKey.load_pkcs1_openssl_pem(decodedKey.encode('utf-8'))
