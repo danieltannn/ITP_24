@@ -1,8 +1,7 @@
 # Task List
 - [x] Allow Administrators to dynamically alter/change the intervals' variable
 - [x] Retrieve JSON data from the user's PC via the proctoring script
-- [x] Decode the JSON data from the user's PC (BASE64 UTF-16LE) [For UUID]
-- [x] Decrypt the decoded JSON data with Fernet Key [For Raw Data]
+- [x] Decrypt the encrypted JSON data with Fernet Key [For Raw Data]
 - [x] Allow Administrators to process/view the information retrieved
 - [x] Store proctoring script on Web Server for the RaspberryPi to access and run without downloading
 - [x] Generate Asymmetric Key Pair (RSA) for RaspberryPi to encrypt the Fernet Key with RSA's Public Key
