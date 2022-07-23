@@ -114,20 +114,11 @@ else {
 //  Renaming $category (To be stored inside `proctoring` database later)
 //========================================================================
 
-if ($category == "AWD") { $category = "Active Windows Detection (AWD)"; } 
-elseif ($category == "AMD") { $category = "Active Monitor Detection (AMD)"; }
-elseif ($category == "PL") { $category = "Process List (PL)"; }
-elseif ($category == "OW") { $category = "Open Windows (OW)"; }
-
-//========================================================================
-//  Renaming $category (To be stored inside `proctoring` database later)
-//========================================================================
-
 //Insert default values if UUID does not exist yet in the interval database
 if ($uuid_exist == 0) {
     
     //DEFAULT VALUES
-    $interval_default = 300;
+    $interval_default = 60;
     $admin_override_default = 0;
     
     $sql_interval = "INSERT INTO intervals (uuid, AWD, AMD, PL, OW, admin_override) VALUES ('$UUID', '$interval_default', '$interval_default', '$interval_default', '$interval_default', '$admin_override_default')"; 
@@ -148,7 +139,7 @@ else {
 // Process Trigger (If $trigger is true/1 and $admin_override is false/0)
 //========================================================================
 
-if ($trigger == 1 && $admin_override == 0) {
+if ($trigger == "True" && $admin_override == 0) {
     
     if ($interval_data > 60) {
         
@@ -187,6 +178,15 @@ if ($trigger == 1 && $admin_override == 0) {
 elseif ($admin_override == 1) {
     echo "Admin Override activated. Interval Value is currently defined by the Administrator.\n";
 }
+
+//========================================================================
+//  Renaming $category (To be stored inside `proctoring` database later)
+//========================================================================
+
+if ($category == "AWD") { $category = "Active Windows Detection (AWD)"; } 
+elseif ($category == "AMD") { $category = "Active Monitor Detection (AMD)"; }
+elseif ($category == "PL") { $category = "Process List (PL)"; }
+elseif ($category == "OW") { $category = "Open Windows (OW)"; }
 
 //========================================================================
 //     Inserting Data into `proctoring` database for viewing/analysis
