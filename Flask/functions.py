@@ -10,11 +10,11 @@ blacklist = ['telegram', 'whatsapp', 'spotify']
 # function to decode base64
 def decodebase64(base64_message):
     # convert the base64 message into bytes
-    base64_bytes = base64_message.encode('ascii')
+    base64_bytes = base64_message.encode('utf-16le')
     # decode the bytes from the base64 message
     message_bytes = base64.b64decode(base64_bytes)
     # convert the decoded message into a readable string
-    message = message_bytes.decode('ascii')
+    message = message_bytes.decode('utf-16le')
     return message
 
 def encodebase64(message):
@@ -89,13 +89,10 @@ def gen_key():
 
 def store_public_key(key):
     global PUBLICKEY
-    # uncomment next line if server is only sending the body of the key
-    #key = "-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----"
-
     # base64 decode public key received from the server
     decodedKey = decodebase64(key)
     # convert the string from payload into an RSA key and store it in the global variable
-    PUBLICKEY = rsa.PublicKey.load_pkcs1_openssl_pem(decodedKey.encode('utf-8'))
+    PUBLICKEY = rsa.PublicKey.load_pkcs1_openssl_pem(decodedKey)
     return
 
 def encrypt_text(plaintext, key):
