@@ -18,6 +18,7 @@
             Features
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item" href="admin_interval_defaults.php">Default Interval Configurations</a></li>
             <li><a class="dropdown-item" href="admin_interval.php">Interval Configurations</a></li>
             <li><a class="dropdown-item" href="upload.php">Upload Proctoring Script</a></li>
             <li><a class="dropdown-item" href="admin_uuidlist.php">Delete Data for specified UUID</a></li>
