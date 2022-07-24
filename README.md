@@ -39,5 +39,13 @@ References:
 To ensure secure transmission of data and prevent data from being manipulated during transfer, we adopt the hybrid encryption (asymmetric and symmetric encryption used together) for our project.
 ## 5.1. Asymmetric
 RSA is used for the project's public-key encryption as it is one of the widely used public-key cryptosystem and can be easily adopted in our project through existing libraries (i.e. Python's cryptography library).
+Encryption Standards and Hash Function
+- Rivest-Shamir-Adleman (RSA): RSA is a widely used public-key cryptosystem. It is also one of the oldest cryptosystem.
+- SHA256: SHA256 is used together with RSA to make an efficient encryption. This can also be easily implemented with existing libraries.
+
 ## 5.2. Symmetric
 Fernet is used for the project's symmetric key encryption as it is one of the method available in Python's cryptography library. Fernet also has security features which ensure that data is securely encrypted before transmission.
+Encryption Standards and Hash Function
+- Advanced Encryption Standard (AES): AES is a symmetric block cipher chosen by the US government to protect classified information
+- PKCS #7: One of the Public-Key Cryptography Standards created by RSA Labs for storing signed and/or encrypted data
+- HMAC SHA256: Type of keyed hash algo constructed from SHA-256 hash function and used as a Hash-based Message Authentication Code (HMAC)
