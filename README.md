@@ -49,3 +49,7 @@ Encryption Standards and Hash Function
 - Advanced Encryption Standard (AES): AES is a symmetric block cipher chosen by the US government to protect classified information
 - PKCS #7: One of the Public-Key Cryptography Standards created by RSA Labs for storing signed and/or encrypted data
 - HMAC SHA256: Type of keyed hash algo constructed from SHA-256 hash function and used as a Hash-based Message Authentication Code (HMAC)
+
+References:
+- https://nitratine.net/blog/post/asymmetric-encryption-and-decryption-in-python/
+- https://cryptography.io/en/latest/fernet/
