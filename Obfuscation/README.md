@@ -20,7 +20,7 @@
 - Variable (Variables in powershell script)  
 1.1 Random Case + {} + Ticks: \$chemex -> ${c\`hEm\`eX}  
 
-- Type (Obfuscation for type in powershell)
+- Type (Obfuscation for type in powershell)  
 1.1 Cast + Concatenate: Similar to String \[Type]('Con'+'sole')  
 1.2 Cast + Reorder: Similar to String \[Type]('{1}{0}'-f'sole','Con')
 
