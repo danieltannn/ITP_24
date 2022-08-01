@@ -115,18 +115,18 @@
    ```
    
    ### 1.4 Notes
-   MAC address can be anything as long as first byte of the address is even  
-   As for IP address, you can pick any two IP address from the reserved private networks range (One for the Pi, One for the HOST PC)
+   The MAC address can be set to anything as long as first byte of the address is an even number  
+   As for the IP addresses, you can pick any two IP address from the reserved private network range (One for the Pi, One for the HOST PC)
    
-   ### 1.5 Advance configuration: Removing the need to manually install RNDIS driver
+   ### 1.5 Advanced configuration: Removing the need to manually install RNDIS driver
    Tricking Windows 10 into auto installing RNDIS driver for a composite gadget so we do not have to manually update its driver.  
    
    To achieve this:
    - Set up an RNDIS gadget using a VID/PID of a known good device that is compatible with composite RNDIS and setting bDeviceClass and bDeviceSubClass to 0x02 for a valid gadget. 
    - Set up the "os_desc" node with Windows.  
-   - Link only the RNDIS function to the config (ethernet gadget mode), attach the USB gadget to the device and allow for Windows to detect and install drivers. 
+   - Link only the RNDIS function to the config (ethernet gadget mode), attach the USB gadget to the device and allows Windows to detect and install drivers. 
    - Detach the USB gadget to link the rest of my functions such as HID gadget.
-   - Setting the bDeviceClass back to 0x00. Forces Windows to use device information in the descriptors and preventing assumption of a particular class.
+   - Setting the bDeviceClass back to 0x00. Forces Windows to use device information in the descriptors and prevents assumption of a particular class.
    - Reattach the USB gadget
    
    The complete example can be seen on bash script: **composite_gadget_autoRNDIS.sh**
