@@ -80,7 +80,7 @@
 </details>  
 
 # Section C: Gadgets
-<details><summary> The codes in this section will go into the /usr/bin/compositeusb file in the raspberry pi under the header "Gadget functions will be added here". Click to expand </summary>
+<details><summary> The codes in this section will go into the /usr/bin/compositeusb file in the Raspberry Pi under the header "Gadget functions will be added here". Click to expand </summary>
    
    ## 1. Ethernet Gadget
    ### 1.1a Windows (RNDIS function)
@@ -103,7 +103,7 @@
    ```
    ### 1.2 Configuring Static IP address and enabling it in Raspberry Pi Zero W
    For the below code, place it below the last line of the /usr/bin/compositeusb file  
-   This is to assigned a fixed ip for the raspberry pi.
+   This is to assign a fixed IP for the Raspberry Pi.
    ```
    ifconfig usb0 10.0.0.1 netmask 255.255.255.0 up
    ```
