@@ -25,13 +25,13 @@
    sudo touch /usr/bin/composite_usb
    sudo chmod +x /usr/bin/composite_usb
    ```
-   2. Editting the config script:
+   2. Editing the config script:
    ```
    sudo nano /usr/bin/composite_usb
    ```
    Can either just copy in the already created one on this github named "composite_gadget_autoRNDIS", which gives you Ethernet Mode, Serial Mode and HID. At the same time it also allows auto installation of RNDIS driver which will be needed to install manually for Ethernet Mode(seen below).  
    
-   If you wan to manually configure it, the skeleton bash script is shown here: 
+   If you want to manually configure it, the skeleton bash script is shown here: 
    ```
    #!/bin/bash
    cd /sys/kernel/config/usb_gadget/
