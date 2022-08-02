@@ -110,6 +110,23 @@ else {
     $uuid_exist = 0; 
 }
 
+//=============================================
+//      Retrieve Defaults for `intervals`
+//=============================================
+$sql = "SELECT * FROM defaults WHERE name='intervals'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        //Retrieve current intervals for the specified UUID
+        $AWD_Default = $row["AWD"]; 
+        $AMD_Default = $row["AMD"]; 
+        $PL_Default = $row["PL"]; 
+        $OW_Default = $row["OW"]; 
+    }
+} else {
+    //Do Nothing
+}
+
 //========================================================================
 //  Renaming $category (To be stored inside `proctoring` database later)
 //========================================================================
@@ -118,10 +135,9 @@ else {
 if ($uuid_exist == 0) {
     
     //DEFAULT VALUES
-    $interval_default = 60;
     $admin_override_default = 0;
     
-    $sql_interval = "INSERT INTO intervals (uuid, AWD, AMD, PL, OW, admin_override) VALUES ('$UUID', '$interval_default', '$interval_default', '$interval_default', '$interval_default', '$admin_override_default')"; 
+    $sql_interval = "INSERT INTO intervals (uuid, AWD, AMD, PL, OW, admin_override) VALUES ('$UUID', '$AWD_Default', '$AMD_Default', '$PL_Default', '$OW_Default', '$admin_override_default')"; 
     
     if (mysqli_query($conn, $sql_interval)) {
         echo "Default Interval Initialized. \n";
